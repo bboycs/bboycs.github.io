@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- Add jQuery library -->
+	<script type="text/javascript" src="../fancybox/lib/jquery-1.8.2.min.js"></script>
+
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="../fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="../fancybox/source/jquery.fancybox.js"></script>
+	<link rel="stylesheet" type="text/css" href="../fancybox/source/jquery.fancybox.css" media="screen" />
+
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="../fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="../fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+	<!-- Add Thumbnail helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="../fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+	<script type="text/javascript" src="../fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+	<!-- Add Media helper (this is optional) -->
+	<script type="text/javascript" src="../fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$('.fancybox').fancybox();
+
+			/*
+			 *  Different effects
+			 */
+
+			// Change title type, overlay closing speed
+			$(".fancybox-effects-a").fancybox({
+				helpers: {
+					title : {
+						type : 'outside'
+					},
+					overlay : {
+						speedOut : 0
+					}
+				}
+			});
+
+			// Disable opening and closing animations, change title type
+			$(".fancybox-effects-b").fancybox({
+				openEffect  : 'none',
+				closeEffect	: 'none',
+
+				helpers : {
+					title : {
+						type : 'over'
+					}
+				}
+			});
+
+			// Set custom style, close if clicked, change title type and overlay color
+			$(".fancybox-effects-c").fancybox({
+				wrapCSS    : 'fancybox-custom',
+				closeClick : true,
+
+				openEffect : 'none',
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					overlay : {
+						css : {
+							'background' : 'rgba(238,238,238,0.85)'
+						}
+					}
+				}
+			});
+
+			// Remove padding, set opening and closing animations, close if clicked and disable overlay
+			$(".fancybox-effects-d").fancybox({
+				padding: 0,
+
+				openEffect : 'elastic',
+				openSpeed  : 150,
+
+				closeEffect : 'elastic',
+				closeSpeed  : 150,
+
+				closeClick : true,
+
+				helpers : {
+					overlay : null
+				}
+			});
+
+			/*
+			 *  Button helper. Disable animations, hide close button, change title type and content
+			 */
+
+			$('.fancybox-buttons').fancybox({
+				openEffect  : 'none',
+				closeEffect : 'none',
+
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					buttons	: {}
+				},
+
+				afterLoad : function() {
+					this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+				}
+			});
+
+
+			/*
+			 *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
+			 */
+
+			$('.fancybox-thumbs').fancybox({
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+				arrows    : false,
+				nextClick : true,
+
+				helpers : {
+					thumbs : {
+						width  : 50,
+						height : 50
+					}
+				}
+			});
+
+			/*
+			 *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
+			*/
+			$('.fancybox-media')
+				.attr('rel', 'media-gallery')
+				.fancybox({
+					openEffect : 'none',
+					closeEffect : 'none',
+					prevEffect : 'none',
+					nextEffect : 'none',
+
+					arrows : false,
+					helpers : {
+						media : {},
+						buttons : {}
+					}
+				});
+
+			/*
+			 *  Open manually
+			 */
+
+			$("#fancybox-manual-a").click(function() {
+				$.fancybox.open('1_b.jpg');
+			});
+
+			$("#fancybox-manual-b").click(function() {
+				$.fancybox.open({
+					href : 'iframe.html',
+					type : 'iframe',
+					padding : 5
+				});
+			});
+
+			$("#fancybox-manual-c").click(function() {
+				$.fancybox.open([
+					{
+						href : '1_b.jpg',
+						title : 'My title'
+					}, {
+						href : '2_b.jpg',
+						title : '2nd title'
+					}, {
+						href : '3_b.jpg'
+					}
+				], {
+					helpers : {
+						thumbs : {
+							width: 75,
+							height: 50
+						}
+					}
+				});
+			});
+
+
+		});
+	</script>
+	<style type="text/css">
+		.fancybox-custom .fancybox-skin {
+			box-shadow: 0 0 50px #222;
+		}
+	</style>
+
+<link href="../fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+<!-- InstanceBegin template="/Templates/index.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Poly, The Coral</title>
+<link href="favicon.ico" type="icon/gif" rel="icon" />
+<link href="../css/template.css" rel="stylesheet" type="text/css" />
+
+<script src="../Scripts/swfobject_modified.js" type="text/javascript"></script>
+
+<link href="../css/incontainer.css" rel="stylesheet" type="text/css" />
+
+
+
+<link href="../css/about.css" rel="stylesheet" type="text/css" />
+<link href="../css/information.css" rel="stylesheet" type="text/css" />
+<link href="../css/contact.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+</script>
+<script type="text/javascript">
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>
+</head>
+
+<body onload="MM_preloadImages('../images/info/why_mdown.gif','../images/info/why_mdown.png','../images/info/when_mdown.png')">
+<div id="container_bg">
+	<div id="container_big1">
+    </div>
+    <div id="container_big2">
+    	<div id="container_nav">
+       		<div id="nav_space"></div>
+       		<div id="nav">
+            	<ul>
+                	<li id="nav1"><a href="about.html">ABOUT</a></li>
+                    <li class="bordersize">|</li>
+	       			<li id="nav2"><a href="info.html">INFORMATION</a></li>
+                    <li class="bordersize">|</li>
+            		<li id="nav3"><a href="contact.html" >CONTACT</a></li>
+               </ul>
+          </div>
+       	  
+        </div>
+        
+      <div id="container_logo"><a href="../index.html"><img src="../images/logo_small.png" width="234" height="92" id="Image1" /></a></div>
+<div id="container_big2-space"></div>
+  </div>
+  <!-- InstanceBeginEditable name="EditRegion1" -->
+  <div id="container_big3">
+ 	 <h1 class="h1_info">INFORMATION</h1>
+    	<div id="container_info">
+        	<div id="info_why">
+            	
+                <a href="#why1" title="" class="fancybox" rel="lightbox[why]" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('why','','../images/info/why_mdown.png',1)"><img src="../images/info/btn_why.png" alt="why" name="why" width="341" height="225" border="0" id="why"/></a>
+                
+                <a href="#why2" title="" class="fancybox" rel="lightbox[why]"></a>
+                
+                
+                <div id="why1" style="width:600px;display: none;">     	
+                    <tr><img src="../images/research/why.jpg" width="520" height="402" class="photoframe"></tr>
+                  <h1 class="h1_lightbox">Why do we need to save coral reefs?</h1>
+                  <p class="allign-middle"><strong>...because they are important to us and the planet</strong></p>
+                  <p class="allign-middle">Move your <span class="highlight">mouse cursor</span> to the <span class="highlight">right</span> and click <span class="highlight">next button</span> for more information.</p>
+                    <br />
+              </div>
+                <div id="why2" style="width:600px;display: none;">
+                  <h1 class="h1_lightbox">Why do we need to save coral reefs?</h2>
+                  <p class="p_lightbox"><strong>1. It impact humans and certain organism living off the coral. </strong>
+</h2>
+                  <p class="p_lightbox"><strong>2. Many species of fish and other organisms that live in the coral and feed off it, could become extinct or decrease in population by large amounts. </strong></p>
+                  <p class="p_lightbox"><strong>3. Humans could lose jobs and money from tourists wanting to dive in the reef.</strong></p>
+                  <p class="p_lightbox"><strong>4. Humans could lose in ingredient of making medicines.</strong></p>
+                    <br />
+                 
+              </div>
+                
+          </div>
+             <div id="info_what">
+                        <a href="#what1" title="" class="fancybox" rel="lightbox[what]" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('what','','../images/info/what_mdown.png',1)"><img src="../images/info/btn_what.png" alt="what" name="what" width="341" height="225" border="0" id="what"/></a>
+                        
+                         <a href="#what2" title="" class="fancybox" rel="lightbox[what]"></a>
+
+                <div id="what1" style="width:600px;display: none;">     	
+                    <tr><img src="../images/research/what.jpg" width="520" height="333" class="photoframe"></tr>
+                    <h1 class="h1_lightbox ">What Does Coral Reef Form From?</h1>
+                    <p class="allign-middle"><strong>Coral reefs are not a plant. They are actually an animal.</strong></p>
+                    <p class="allign-middle">Move your <span class="highlight">mouse cursor</span> to the <span class="highlight">right</span> and click <span class="highlight">next button</span> for more information.</p>
+                    <br />
+                </div>
+                <div id="what2" style="width:600px;display: none;">
+                  <h1 class="h1_lightbox">What Does Coral Reef Form From?</h2>
+                  <p class="p_lightbox"><strong>1. Coral reefs are formed by the coral polyps.</strong></p>
+
+                <p class="p_lightbox"><strong>2. They usually live in groupd together. (Several 1 millions)</p>
+
+                <p class="p_lightbox"><strong>3. Polyps use the chemical substances in water to build thier shell(the coral reef).</strong>
+                </p>
+
+                <p class="p_lightbox"><strong>4. Coral reeds are used to protect the soft and friable coral polyps, as a hrad shell case.</strong>
+                </p>
+
+                
+              </div>
+            </div>
+            <div id="info_who">
+            	<a href="#who1" title="" class="fancybox" rel="lightbox[who]" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('who','','../images/info/who_mdown.png',1)"><img src="../images/info/btn_who.png" alt="who" name="who" width="341" height="225" border="0" id="who"/></a>
+                
+              <a href="#who2" title="" class="fancybox" rel="lightbox[who]"></a>
+              <div id="who1" style="width:600px;display: none;">     	
+                    <tr><img src="../images/research/who.png" width="520" height="364" class="photoframe"></tr>
+                <h1 class="h1_lightbox">Who are the people caused this issue?</h1>
+                <p class="allign-middle"><strong>People did it unconciously. Cheak are you one of them.</strong></p>
+                <p class="allign-middle">Move your <span class="highlight">mouse cursor</span> to the <span class="highlight">right</span> and click <span class="highlight">next button</span> for more information.</p>
+                    <br />
+              </div>
+              <div id="who2" style="width:600px;display: none;">
+                  <h1 class="h1_lightbox">Are You One Of Them Who Caused This Issue?</h2>
+                  <p class="p_lightbox"><strong>1. Fishing men / Fishermen</strong><br>
+                Using blast or cynaide fishing which destroy the coral reefs.</p>
+
+                <p class="p_lightbox"><strong>2. Tourist(Swimmer/Diver)</strong><br>
+                Swimmer and Diver who touch and step on the coral reefs, hurt them.
+                </p>
+
+                <p class="p_lightbox"><strong>3. Memorabillia Collectors</strong><br>
+               Memorabillia collectors who collect coral reefs as treasures or accessories
+                </p>
+
+                <p class="p_lightbox"><strong>4. Boater</strong><br>
+                Boater who boating carelessly always accidentally hit the coral reefs. 
+                </p>
+
+                <p class="p_lightbox"><strong>5. Public(who usually burns their waste)</strong><br>
+                They causes global warming which increase the water temperature. It caused coral reefs bleaching because of the water temperature changed.</p>
+              </div>
+              
+            </div>
+            <div id="info_when">
+            
+             <a href="#when1" title="" class="fancybox" rel="lightbox[when]" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('when','','../images/info/when_mdown.png',1)"><img src="../images/info/btn_when.png" alt="whwhen" name="when" width="341" height="225" border="0" id="when"/></a>
+             <a href="#when2" title="" class="fancybox" rel="lightbox[when]"></a>
+            
+            
+            	<div id="when1" style="width:600px;display: none;">     	
+                    <tr><img src="../images/research/when.jpg" width="520" height="416" class="photoframe"></tr>
+                    
+                    <h1 class="h1_lightbox">When Was These Cases Happened?</h1>
+                    <p class="allign-middle"><strong>When did the public action affects coral?</strong></p>
+                    <p class="allign-middle">Move your <span class="highlight">mouse cursor</span> to the <span class="highlight">right</span> and click <span class="highlight">next button</span> for more information.</p>
+                    <br />
+              </div>
+              <div id="when2" style="width:600px;display: none;">
+                  <h1 class="h1_lightbox">When did the public action affects coral?</h2>
+                  <p class="p_lightbox"><strong>1. Oil Exploration</strong><br>
+                In order to detect oil. Explorer blow up the reefs..</p>
+
+                <p class="p_lightbox"><strong>2. Blast Fishing / Cynaide Fishing</strong><br>
+               These fishing processes violent collision coral reefs to salvage the fishes and crabs.
+                </p>
+
+                <p class="p_lightbox"><strong>3. Doing Memorabilia Collection</strong><br>
+                Human steal coral reefs to make jewelly and decorative objects.
+           		</p>
+                 <p class="p_lightbox"><strong>4. Tourism</strong><br>
+                Tourists, swimmers and divers touch and step on the coral reefs.
+                </p>
+
+                <p class="p_lightbox"><strong>5. Pollution</strong><br>
+                Rubbishes which people threw into the sea cause the living area for coral reefs become polluted.</p>
+                <p class="p_lightbox"><strong>6. Global Warming</strong><br>
+                Global warming causes the ocean has an extreme changes between day and night. This changes cause the bleaching of coral reefs when they cannot survive in that temperature.</p>
+              </div>
+             
+          </div>
+            <div id="info_how">
+            	<a href="#how1" title="" class="fancybox" rel="lightbox[how]" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('how','','../images/info/how_mdown.png',1)"><img src="../images/info/btn_how.png" alt="how" name="how" width="341" height="225" border="0" id="how" /></a>
+              
+                <a href="#how2" title="" class="fancybox" rel="lightbox[how]"></a>
+                
+                
+                <div id="how1" style="width:600px;display: none;">     	
+                    <tr><img src="../images/research/how.jpg" width="520" height="390" class="photoframe"></tr>
+                  <h1 class="h1_lightbox">How Can You Save The Coral Reefs?</h1>
+                  <p class="allign-middle"><strong>Do you have the same personality as me?</strong></p>
+                  <p class="allign-middle">Move your <span class="highlight">mouse cursor</span> to the <span class="highlight">right</span> and click <span class="highlight">next button</span> for more information.</p>
+                    <br />
+              </div>
+                <div id="how2" style="width:600px;display: none;">
+                  <h1 class="h1_lightbox">How Can You Save The Coral Reefs?</h2>
+                  <p class="p_lightbox"><strong>1. Support Reef Friendly Business</strong>
+                </p>
+
+                <p class="p_lightbox"><strong>2. Dispose trush properly</strong>
+                
+                </p>
+
+                <p class="p_lightbox"><strong>3. Use organic fertilizers</strong>
+                
+                </p>
+
+                <p class="p_lightbox"><strong>4. Volunteer for reef clean up</strong>
+                
+                </p>
+
+                <p class="p_lightbox"><strong>5. Prevent global warming by recycling</strong>
+                </p>
+                <p class="p_lightbox"><strong>6. Not polluting the air and the water.</strong>
+                </p>
+                 
+              </div>
+              <div id="how3" style="width:600px;display: none;">
+                  <h1 class="h1_lightbox">Why do we need to save coral reefs?</h2>
+                  <h2 class="p_how">Lose Jobs</h2>
+                  <p>Spend more than 3 hours on Blogger</p>
+                    <br />
+                  
+              </div>
+                
+          </div>
+            <div id="info_where">
+            	<a href="#where1" title="" class="fancybox" rel="lightbox[where]" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('where','','../images/info/where_mdown.png',1)"><img src="../images/info/btn_where.png" alt="where" name="where" width="341" height="225" border="0" id="where"/></a>
+                <a href="#where2" title="&lt;a href=&quot;http://reefgis.reefbase.org/default.aspx?wms=RGWRR2011&bbox=-30,-98.5751072961373,330,98.5751072961373&quot &quot; target=&quot;_blank&quot;;&gt;Click here to view location of endangered coral reefs in map&lt;/a&gt;" class="fancybox" rel="lightbox[where]"></a>
+              <div id="where1" style="width:600px;display: none;">     	
+                    <tr><img src="../images/research/where.jpg" width="520" height="277" class="photoframe"></tr>
+                <h1 class="h1_lightbox">Where Are They?</h1>
+                <p class="allign-middle"><strong>Where are the location of endangered coral reefs?</strong></p>
+                <p class="allign-middle">Move your <span class="highlight">mouse cursor</span> to the <span class="highlight">right</span> and click <span class="highlight">next button</span> for more information.</p>
+                    <br />
+              </div>
+              
+              <div id="where2" style="width:600px;display: none;">
+                  <h1 class="h1_lightbox">5 Most Endangered Coral Reefs in the World</h2>
+                  <p class="p_lightbox"><strong>1. The Great Barrier Reef</strong><br>
+                It is a marine park. Located in Australia. It is the largest reef in the world. The risk of dying by 95% in the year 2050.</p>
+
+                <p class="p_lightbox"><strong>2. Southeast Asian Coral Reefs</strong><br>
+                An oversight that has put the region’s nearly 100,000 square kilometers of coral reefs, almost 34 percent of the world total, in grave danger.
+                </p>
+
+                <p class="p_lightbox"><strong>3. Caribbean Coral Reefs</strong><br>
+                Nearly two-thirds of coral reefs in the Caribbean are threatened by human activities, such as coastal development, sediment and pollution, marine based threats and overfishing.
+                </p>
+
+                <p class="p_lightbox"><strong>4. Kingman Reef</strong><br>
+                Located about 1,000 miles southwest of Honolulu, Kingman Reef is an uninhabited, barren, coral atoll with a deep lagoon. “It became a U.S. naval reservation in 1934. 
+                </p>
+
+                <p class="p_lightbox"><strong>5. Florida’s Coral Reefs</strong><br>
+                “Monitoring data from 105 stations in the Florida Keys has revealed a 44 percent decline in coral cover from 1996-2005,” reports the Florida Department of Environmental Protection.</p>
+                    
+              </div>
+            </div>
+        </div>
+    </div>
+  <!-- InstanceEndEditable --><!-- InstanceBeginEditable name="EditRegion2" -->
+    <div id="container_big4"> 
+    	<span class="align-left">Where am I: <a href="../index.html">HOME</a> > INFORMATION</span>
+    	<span class="align-right">
+        	Follow us on:&nbsp; 
+        	<a href="https://www.facebook.com/polythecoral" title="Facebook" target="_blank">Facebook</a>&nbsp;/&nbsp; 
+            <a href="https://www.youtube.com/channel/UCknmq2oADKYLFmPuuOknM6g" title="YouTube" target="_blank">YouTube</a>
+        </span> 
+        
+  </div>
+    <!-- InstanceEndEditable -->
+    <div id="container_big5">
+    	<span>Copyright by Iris Cheah. All right reserved. </span>
+        <span class="align-right">Music copyrighted belong to their respective owners. </span>
+    </div>
+</div>
+
+</body>
+<!-- InstanceEnd --></html>

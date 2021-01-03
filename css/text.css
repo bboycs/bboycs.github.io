@@ -1,0 +1,56 @@
+@font-face {
+    font-family: "Vijaya";
+    src: url(../fonts/vijaya.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Vijaab";
+    src: url(../fonts/vijayab.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Gabriola";
+    src: url(../fonts/gabriola.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Patinio Basica";
+    src: url(../fonts/patino-basica.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Conviction";
+    src: url(../fonts/conviction.ttf) format("truetype");
+}
+@font-face {
+    font-family: "TektonPro-Bold";
+    src: url(../fonts/TektonPro-Bold.ttf) format("truetype");
+@font-face {
+    font-family: "TektonPro-BoldCond";
+    src: url(../fonts/TektonPro-BoldCond.ttf) format("truetype");
+}
+@font-face {
+    font-family: "TektonPro-BoldExt";
+    src: url(../fonts/TektonPro-BoldExt.ttf) format("truetype");
+}
+@font-face {
+    font-family: "TektonPro-BoldObl";
+    src: url(../fonts/TektonPro-BoldObl.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Sketch Nice";
+    src: url(../fonts/sketch_nice_Sketch Nice.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Sketch Toska";
+    src: url(../fonts/sketch_toska/Sketch Toska.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Sketch Block";
+    src: url(../fonts/sketch_block/Sketch_Block.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Press Style Serif";
+    src: url(../fonts/press_style_serif/Press Style Serif.ttf) format("truetype");
+}
