@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+
+        function openChart(elem) {
+            var code = elem.querySelector('.companyName').innerText.match(/\d+/g)[0];
+            window.open("https://www.klsescreener.com/v2/charting/chart/" + code);
+        }
+
+        function dateGenerate() {
+            var currentDate = document.querySelector('.titleDate.nowDate').innerText;
+            var dateParts = currentDate.split("-");
+
+            var preDateNode = document.querySelector('.titleDate.preDate a');
+            var nextDateNode = document.querySelector('.titleDate.nextDate a');
+            preDateNode.href = '';
+            preDateNode.innerText = '';
+            nextDateNode.href = '';
+            nextDateNode.innerText = '';
+            loopDate(true, new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]), preDateNode);
+            loopDate(false, new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]), nextDateNode);
+        }
+
+        function loopDate(pre, nowDate, docNode) {
+            var tempDate = nowDate;
+            var dateChange = pre ? -1 : 1;
+            for (i = 0; i < 7; i++) {
+                tempDate.setDate(tempDate.getDate() + dateChange);
+                var pDateParts = tempDate.toLocaleDateString().split("/");
+                var pDate = (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) + "-" + (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) + "-" + (pDateParts[2]);
+                var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
+                if (verifywebFile(filePath)) {
+
+                    docNode.href = filePath;
+                    docNode.innerText = pDate;
+                    break;
+                }
+            }
+        }
+
+        function verifywebFile(filePath) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('HEAD', filePath, false);
+            xhr.send();
+
+            if (xhr.status == "404") {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .titleDate {
+            font-size: 5vw;
+            color: #ffffff;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 25%;
+            height: 180px;
+            padding: 10px;
+            background-color: #ffffff;
+            border-color: #000000;
+            border-style: solid;
+            border-width: 1px;
+        }
+        .column {
+            color: white;
+            background-color: transparent;
+        }
+            /* green column */
+            .column.green {
+                background-color: #05ac4d;
+            }
+
+            /* red column */
+            .column.red {
+                background-color: #ef3623;
+            }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .row.hidden {
+            visibility: hidden;
+        }
+
+        .dateRow {
+            display: table;
+            width: 100%; /*Optional*/
+            table-layout: fixed; /*Optional*/
+            border-spacing: 10px; /*Optional*/
+        }
+
+        .preDate, .nowDate, .nextDate {
+            display: table-cell;
+        }
+
+        div.companyName, div.companyCode {
+            float: left;
+            width: 100%;
+            font-size: larger;
+        }
+
+        div.companyOpen, div.companyChange {
+            float: left;
+            width: 50%;
+            font-size: large;
+        }
+        
+    </style>
+</head>
+<body style="background-color: #555352" onload="dateGenerate()">
+    <div class="dateRow">
+        <div class="titleDate preDate"><a href="1/1/2021">1/1/2021</a></div>
+        <div class="titleDate nowDate">13-02-2021</div>
+        <div class="titleDate nextDate"><a href="1/1/2021">1/1/2021</a></div>
+    </div>
+    <div class="contentRow">
+        <div class="row">
+        </div>
+    <div class="row"><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">KAB ( 0193 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">1.1</div><div class="companyChange">0.13</div></div><div style="margin-top: 115px;"><div class="companyVol">8826300</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">PESTECH ( 5219 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">1.16</div><div class="companyChange">0.07</div></div><div style="margin-top: 115px;"><div class="companyVol">21563300</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">PECCA ( 5271 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">1.79</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">1276500</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">PRESTAR ( 9873 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.915</div><div class="companyChange">0.025</div></div><div style="margin-top: 115px;"><div class="companyVol">3716400</div></div></div></div><div class="row"><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">RESINTC ( 7232 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.44</div><div class="companyChange">0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">4298500</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">XIANLNG ( 7121 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.915</div><div class="companyChange">0.05</div></div><div style="margin-top: 115px;"><div class="companyVol">6466800</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">HOOVER ( 7010 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">1.08</div><div class="companyChange">0.28</div></div><div style="margin-top: 115px;"><div class="companyVol">1801500</div></div></div></div></div>
+</body>
+</html>
