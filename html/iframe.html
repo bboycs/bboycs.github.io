@@ -1,40 +1,70 @@
 <html>
-	<head>
-		<script>
-		   function dateGenerate() {
-            loopDate(true);
-			}
-			
-			function loopDate(pre) {
-            var tempDate = new Date();
-            for (i = 0; i < 7; i++) {
-                tempDate.setDate(tempDate.getDate() + (-i));
-                var pDateParts = tempDate.toLocaleDateString().split("/");
-                var pDate = (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) + "-" + (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) + "-" + (pDateParts[2]);
-                var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
-                if (verifywebFile(filePath)) {
-					document.querySelector('.ifm').src = filePath;
-                    break;
-                }
-            }
-        }
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      function dateGenerate() {
+        loopDate(true);
+      }
 
-        function verifywebFile(filePath) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('HEAD', filePath, false);
-            xhr.send();
-
-            if (xhr.status == "404") {
-                return false;
-            } else {
-                return true;
-            }
+      function loopDate(pre) {
+        var tempDate = new Date();
+        for (i = 0; i < 7; i++) {
+          tempDate.setDate(tempDate.getDate() + -i);
+          var pDateParts = tempDate.toLocaleDateString().split("/");
+          var pDate =
+            (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) +
+            "-" +
+            (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) +
+            "-" +
+            pDateParts[2];
+          var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
+          if (verifywebFile(filePath)) {
+            document.querySelector(".ifm").src = filePath;
+            break;
+          }
         }
-		</script>
-	</head>
+      }
+
+      function verifywebFile(filePath) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("HEAD", filePath, false);
+        xhr.send();
+
+        if (xhr.status == "404") {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    </script>
+    <style>
+      .container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      }
+
+      .responsive-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
   <body onload="dateGenerate()">
     <div>
-      <iframe class="ifm" style="margin: 0; width:100%; height:100%" src="" title="testIframe"></iframe>
+      <iframe
+        class="ifm"
+        style="margin: 0; width: 100%; height: 100%"
+        src=""
+        title="testIframe"
+      ></iframe>
     </div>
   </body>
 </html>
