@@ -28,7 +28,7 @@
             for (i = 0; i < 7; i++) {
                 tempDate.setDate(tempDate.getDate() + dateChange);
                 var pDateParts = tempDate.toLocaleDateString().split("/");
-                var pDate = (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) + "-" + (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) + "-" + (pDateParts[2]);
+                var pDate = (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) + "-" (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) + "-" + (pDateParts[2]);
                 var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
                 if (verifywebFile(filePath)) {
 
