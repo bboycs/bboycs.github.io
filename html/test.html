@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .titleDate {
+        font-size: 10vw;
+        color: #ffffff;
+      }
+
+      /* Create two equal columns that floats next to each other */
+      .column {
+        float: left;
+        width: 25%;
+        height: 180px;
+        padding: 10px;
+        background-color: #ffffff;
+        border-color: #000000;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+      /* green column */
+      .column.green {
+        background-color: #05ac4d;
+      }
+
+      /* red column */
+      .column.red {
+        background-color: #ef3623;
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+
+      .row.hidden {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body style="background-color: #555352">
+    <div class="titleDate">31/1-2021</div>
+    <div class="contentRow">
+      <div class="row hidden">
+        <div class="column">
+          <h2>Column 1</h2>
+          <p>Some text..</p>
+        </div>
+        <div class="column">
+          <h2>Column 2</h2>
+          <p>Some text..</p>
+        </div>
+        <div class="column">
+          <h2>Column 1</h2>
+          <p>Some text..</p>
+        </div>
+        <div class="column">
+          <h2>Column 2</h2>
+          <p>Some text..</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
