@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+
+        function openChart(elem) {
+            var code = elem.querySelector('.companyName').innerText.match(/\d+/g)[0];
+            window.open("https://www.klsescreener.com/v2/charting/chart/" + code);
+        }
+
+        function dateGenerate() {
+            var currentDate = document.querySelector('.titleDate.nowDate').innerText;
+            var dateParts = currentDate.split("-");
+
+            var preDateNode = document.querySelector('.titleDate.preDate a');
+            var nextDateNode = document.querySelector('.titleDate.nextDate a');
+            preDateNode.href = '';
+            preDateNode.innerText = '';
+            nextDateNode.href = '';
+            nextDateNode.innerText = '';
+            loopDate(true, new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]), preDateNode);
+            loopDate(false, new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]), nextDateNode);
+        }
+
+        function loopDate(pre, nowDate, docNode) {
+            var tempDate = nowDate;
+            var dateChange = pre ? -1 : 1;
+            for (i = 0; i < 7; i++) {
+                tempDate.setDate(tempDate.getDate() + dateChange);
+                var pDateParts = tempDate.toLocaleDateString().split("/");
+                var pDate = (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) + "-" + (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) + "-" + (pDateParts[2]);
+                var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
+                if (verifywebFile(filePath)) {
+
+                    docNode.href = filePath;
+                    docNode.innerText = pDate;
+                    break;
+                }
+            }
+        }
+
+        function verifywebFile(filePath) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('HEAD', filePath, false);
+            xhr.send();
+
+            if (xhr.status == "404") {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .titleDate {
+            font-size: 5vw;
+            color: #ffffff;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 25%;
+            height: 180px;
+            padding: 10px;
+            background-color: #ffffff;
+            border-color: #000000;
+            border-style: solid;
+            border-width: 1px;
+        }
+        .column {
+            color: white;
+            background-color: transparent;
+        }
+            /* green column */
+            .column.green {
+                background-color: #05ac4d;
+            }
+
+            /* red column */
+            .column.red {
+                background-color: #ef3623;
+            }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .row.hidden {
+            visibility: hidden;
+        }
+
+        .dateRow {
+            display: table;
+            width: 100%; /*Optional*/
+            table-layout: fixed; /*Optional*/
+            border-spacing: 10px; /*Optional*/
+        }
+
+        .preDate, .nowDate, .nextDate {
+            display: table-cell;
+        }
+
+        div.companyName, div.companyCode {
+            float: left;
+            width: 100%;
+            font-size: larger;
+        }
+
+        div.companyOpen, div.companyChange {
+            float: left;
+            width: 50%;
+            font-size: large;
+        }
+        
+    </style>
+</head>
+<body style="background-color: #555352" onload="dateGenerate()">
+    <div class="dateRow">
+        <div class="titleDate preDate"><a href="1/1/2021">1/1/2021</a></div>
+        <div class="titleDate nowDate">17-02-2021</div>
+        <div class="titleDate nextDate"><a href="1/1/2021">1/1/2021</a></div>
+    </div>
+    <div class="contentRow">
+        <div class="row">
+        </div>
+    <div class="row"><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">AJIYA ( 7609 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.555</div><div class="companyChange">0.03</div></div><div style="margin-top: 115px;"><div class="companyVol">694400</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">BENALEC ( 5190 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.14</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">2073600</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">CANONE ( 5105 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">2.8</div><div class="companyChange">0.07</div></div><div style="margin-top: 115px;"><div class="companyVol">194900</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">CIHLDG ( 2828 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">2.04</div><div class="companyChange">0.36</div></div><div style="margin-top: 115px;"><div class="companyVol">797500</div></div></div></div><div class="row"><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">DATAPRP ( 8338 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.425</div><div class="companyChange">0.205</div></div><div style="margin-top: 115px;"><div class="companyVol">273231500</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">EG ( 8907 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.905</div><div class="companyChange">0.035</div></div><div style="margin-top: 115px;"><div class="companyVol">18087300</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">EMETALL ( 7217 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.67</div><div class="companyChange">0.04</div></div><div style="margin-top: 115px;"><div class="companyVol">1843200</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">FAJAR ( 7047 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.54</div><div class="companyChange">0.015</div></div><div style="margin-top: 115px;"><div class="companyVol">2686700</div></div></div></div><div class="row"><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">FARLIM ( 6041 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.29</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">80000</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">FIMACOR ( 3107 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">1.78</div><div class="companyChange">0.07</div></div><div style="margin-top: 115px;"><div class="companyVol">50500</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">GCAP ( 7676 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.935</div><div class="companyChange">0.05</div></div><div style="margin-top: 115px;"><div class="companyVol">20940200</div></div></div><div onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">HARISON ( 5008 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">4</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">130500</div></div></div></div><div class="row"><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">HIAPTEK ( 5072 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.405</div><div class="companyChange">0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">111773000</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">INNATURE ( 5295 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.535</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">1333800</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">IQGROUP ( 5107 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">1.14</div><div class="companyChange">0.03</div></div><div style="margin-top: 115px;"><div class="companyVol">314600</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">JASKITA ( 8648 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.105</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">520000</div></div></div></div><div class="row"><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">LBS ( 5789 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.42</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">4097600</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">MELEWAR ( 3778 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.5</div><div class="companyChange">0.015</div></div><div style="margin-top: 115px;"><div class="companyVol">54054000</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">MIECO ( 5001 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.94</div><div class="companyChange">0.03</div></div><div style="margin-top: 115px;"><div class="companyVol">5337200</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">POHUAT ( 7088 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">1.74</div><div class="companyChange">0.04</div></div><div style="margin-top: 115px;"><div class="companyVol">912500</div></div></div></div><div class="row"><div onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">SUBUR ( 6904 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.785</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">109600</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">SYF ( 7082 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.355</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">4299900</div></div></div><div onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">T7GLOBAL ( 7228 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.43</div><div class="companyChange">0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">4880300</div></div></div><div onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">TAFI ( 7211 ) </div></div><div style="margin-top: 75px;"><div class="companyOpen">0.66</div><div class="companyChange">-0.025</div></div><div style="margin-top: 115px;"><div class="companyVol">148500</div></div></div></div></div>
+</body>
+</html>
