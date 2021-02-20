@@ -114,7 +114,16 @@
         if (json === undefined) {
           currentPriceElem.innerText = "";
         } else {
-          var dataJSON = JSON.parse(json.contents);
+          var dataJSON = {};
+          
+        if(window.location.href.indexOf('http') >=0 || window.location.href.indexOf('https') >= 0)
+        {
+            dataJSON = json;
+        }
+        else
+        {
+            dataJSON =  JSON.parse(json.contents);
+        }
           for (var c of dataJSON) {
             if (c.label.toUpperCase() === name.toUpperCase()) {
               currentPriceElem.innerHTML = c.price;
