@@ -72,12 +72,63 @@
         }
       }
 
-      function doCORSRequest(elem,name , options, setCurrentPrice) {
-          
+      function loadPrice(elem) {
+        var name = elem.querySelector(".companyName").innerText.split(" ")[0];
+
+        if(window.location.href.indexOf('http') >=0 || window.location.href.indexOf('https') >= 0)
+        {
+        doCORSRequest(
+          elem,
+          name,
+          {
+            method: "GET",
+            url:
+              "https://api.allorigins.win/raw?url=https://www.klsescreener.com/v2/stocks/all.json?term=" +
+              name,
+          },
+          setCurrentPrice
+          );
+        }
+        else
+        {
+        fetch(
+          `https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=` +
+            name
+        )
+          .then((response) => {
+            if (response.ok) return response.json();
+            else {
+              setCurrentPrice(elem, name, undefined);
+              throw new Error("Network response was not ok.");
+            }
+          })
+          .then((data) => {
+            setCurrentPrice(elem, name, data);
+          });
+        }
+      }
+
+      function setCurrentPrice(elem, name, json) {
+        var currentPriceElem = elem.querySelector(".companyCurrent");
+
+        if (json === undefined) {
+          currentPriceElem.innerText = "";
+        } else {
+          var dataJSON = JSON.parse(json.contents);
+          for (var c of dataJSON) {
+            if (c.label.toUpperCase() === name.toUpperCase()) {
+              currentPriceElem.innerHTML = c.price;
+              break;
+            }
+          }
+        }
+      }
+
+      function doCORSRequest(elem, name, options, setCurrentPrice) {
         var x = new XMLHttpRequest();
         x.open(options.method, options.url);
         x.onload = x.onerror = function () {
-            setCurrentPrice(elem,name,x.response);
+          setCurrentPrice(elem, name, x.response);
         };
         if (/^POST/i.test(options.method)) {
           x.setRequestHeader(
@@ -86,72 +137,9 @@
           );
         }
         x.send(options.data);
-        x.onerror = function(){
-            setCurrentPrice(elem,name,undefined);
-        }
-      }
-
-      function loadPrice(elem) {
-        var name = elem.querySelector(".companyName").innerText.split(" ")[0];
-
-        doCORSRequest(elem, name, {
-        method: 'GET',
-        url: "https://api.allorigins.win/raw?url=https://www.klsescreener.com/v2/stocks/all.json?term=" + name,
-      }, 
-      function setCurrentPrice(elem, name, json) {
-        var currentPriceElem = elem.querySelector(".companyCurrent");
-
-        if (json === undefined) {
-          currentPriceElem.innerText = "";
-        } else {
-          for (var c of JSON.parse(json)) {
-            if (c.label.toUpperCase() === name.toUpperCase()) {
-              currentPriceElem.innerHTML = c.price;
-              break;
-            }
-          }
-        }
-      });
-
-
-
-        // $.getJSON(
-        //   "https://api.allorigins.win/raw?url=https://www.klsescreener.com/v2/stocks/all.json?term=" +
-        //     name,
-        //   function (data) {
-        //     setCurrentPrice(elem, name, data);
-        //   }
-        // ).error(() => {
-        //   setCurrentPrice(elem, name, undefined);
-        //   console.log("error");
-        // });
-
-        //             var name = elem.querySelector('.companyName').innerText.split(' ')[0];
-        //             fetch(`https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=` + name,{headers:{
-        // 'Accept' :'*/*',
-        // 'Accept-Encoding':'gzip, deflate, br',
-        // 'Accept-Language':'en-US,en;q=0.5',
-        // 'Cache-Control':'max-age=0',
-        // 'Connection':'keep-alive',
-        // 'DNT':1,
-        // 'Host':'api.allorigins.win',
-        // 'Origin':'https://bboycs.github.io',
-        // 'Access-Control-Allow-Origin':'https://bboycs.github.io',
-        // 'Access-Control-Allow-Headers':' "Origin, X-Requested-With, Content-Type, Accept, Authorization"',
-        // 'mode': 'no-cors',
-        // 'TE':'Trailers',
-        // 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:85.0) Gecko/20100101 Firefox/85.0'
-        //             }})
-        //                 .then(response => {
-        //                     if (response.ok) return response.json()
-        //                     else {
-        //                         setCurrentPrice(elem, name, undefined);
-        //                         throw new Error('Network response was not ok.')
-        //                     }
-        //                 })
-        //                 .then(data => {
-        //                     setCurrentPrice(elem, name, data)
-        //                 });
+        x.onerror = function () {
+          setCurrentPrice(elem, name, undefined);
+        };
       }
     </script>
     <link
