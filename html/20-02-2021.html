@@ -4,7 +4,7 @@
     <script>
 
         function openChart(elem) {
-            var code = elem.querySelector('.companyName').innerText.match(/\d+/g)[0];
+            var code = elem.querySelector('.companyName').innerText.split('(')[1].match(/\d+/g)[0];
             window.open("https://www.klsescreener.com/v2/charting/chart/" + code);
         }
 
