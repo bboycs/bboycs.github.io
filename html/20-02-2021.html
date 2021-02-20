@@ -118,7 +118,7 @@
           
         if(window.location.href.indexOf('http') >=0 || window.location.href.indexOf('https') >= 0)
         {
-            dataJSON = json;
+            dataJSON = JSON.parse(json);
         }
         else
         {
