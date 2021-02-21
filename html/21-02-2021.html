@@ -1,141 +1,157 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+    <script
+      type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+    ></script>
     <script>
-        $(function () {
-            $("div[onload]").trigger("onload");
-        });
-        function openChart(elem) {
-            var code = elem
-                .querySelector(".companyName")
-                .innerText.match(/\d+/g)[0];
-            window.open("https://www.klsescreener.com/v2/charting/chart/" + code);
+      $(function () {
+        $("div[onload]").trigger("onload");
+      });
+      function openChart(elem) {
+        var code = elem
+          .querySelector(".companyName")
+          .innerText.match(/\d+/g)[0];
+        window.open("https://www.klsescreener.com/v2/charting/chart/" + code);
+      }
+
+      function dateGenerate() {
+        var currentDate = document.querySelector(".titleDate.nowDate")
+          .innerText;
+        var dateParts = currentDate.split("-");
+
+        var preDateNode = document.querySelector(".titleDate.preDate a");
+        var nextDateNode = document.querySelector(".titleDate.nextDate a");
+        preDateNode.href = "";
+        preDateNode.innerText = "";
+        nextDateNode.href = "";
+        nextDateNode.innerText = "";
+        loopDate(
+          true,
+          new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]),
+          preDateNode
+        );
+        loopDate(
+          false,
+          new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]),
+          nextDateNode
+        );
+      }
+
+      function loopDate(pre, nowDate, docNode) {
+        var tempDate = nowDate;
+        var dateChange = pre ? -1 : 1;
+        for (i = 0; i < 7; i++) {
+          tempDate.setDate(tempDate.getDate() + dateChange);
+          var pDateParts = tempDate.toLocaleDateString().split("/");
+          var pDate =
+            (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) +
+            "-" +
+            (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) +
+            "-" +
+            pDateParts[2];
+          var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
+          if (verifywebFile(filePath)) {
+            docNode.href = filePath;
+            docNode.innerText = pDate;
+            break;
+          }
         }
+      }
 
-        function dateGenerate() {
-            var currentDate = document.querySelector(".titleDate.nowDate")
-                .innerText;
-            var dateParts = currentDate.split("-");
+      function verifywebFile(filePath) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("HEAD", filePath, false);
+        xhr.send();
 
-            var preDateNode = document.querySelector(".titleDate.preDate a");
-            var nextDateNode = document.querySelector(".titleDate.nextDate a");
-            preDateNode.href = "";
-            preDateNode.innerText = "";
-            nextDateNode.href = "";
-            nextDateNode.innerText = "";
-            loopDate(
-                true,
-                new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]),
-                preDateNode
-            );
-            loopDate(
-                false,
-                new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]),
-                nextDateNode
-            );
+        if (xhr.status == "404") {
+          return false;
+        } else {
+          return true;
         }
+      }
 
-        function loopDate(pre, nowDate, docNode) {
-            var tempDate = nowDate;
-            var dateChange = pre ? -1 : 1;
-            for (i = 0; i < 7; i++) {
-                tempDate.setDate(tempDate.getDate() + dateChange);
-                var pDateParts = tempDate.toLocaleDateString().split("/");
-                var pDate =
-                    (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) +
-                    "-" +
-                    (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) +
-                    "-" +
-                    pDateParts[2];
-                var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
-                if (verifywebFile(filePath)) {
-                    docNode.href = filePath;
-                    docNode.innerText = pDate;
-                    break;
-                }
-            }
+      function loadPrice(elem) {
+        var name = elem.querySelector(".companyName").innerText.split(" ")[0];
+
+        if(window.location.href.indexOf('http') >=0 || window.location.href.indexOf('https') >= 0)
+        {
+        doCORSRequest(
+          elem,
+          name,
+          {
+            method: "GET",
+            url:
+              "https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=" +
+              name,
+          },
+          setCurrentPrice
+          );
         }
-
-        function verifywebFile(filePath) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("HEAD", filePath, false);
-            xhr.send();
-
-            if (xhr.status == "404") {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        function loadPrice(elem) {
-            var name = elem.querySelector(".companyName").innerText.split(" ")[0];
-
-            if (window.location.href.indexOf('http') >= 0 || window.location.href.indexOf('https') >= 0) {
-                doCORSRequest(
-                    elem,
-                    name,
-                    {
-                        method: "GET",
-                        url:
-                            "https://api.allorigins.win/raw?url=https://www.klsescreener.com/v2/stocks/all.json?term=" +
-                            name,
-                    },
-                    setCurrentPrice
-                );
-            }
+        else
+        {
+        fetch(
+          `https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=` +
+            name
+        )
+          .then((response) => {
+            if (response.ok) return response.json();
             else {
-                fetch(
-                    `https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=` +
-                    name
-                )
-                    .then((response) => {
-                        if (response.ok) return response.json();
-                        else {
-                            setCurrentPrice(elem, name, undefined);
-                            throw new Error("Network response was not ok.");
-                        }
-                    })
-                    .then((data) => {
-                        setCurrentPrice(elem, name, data);
-                    });
+              setCurrentPrice(elem, name, undefined);
+              throw new Error("Network response was not ok.");
             }
+          })
+          .then((data) => {
+            setCurrentPrice(elem, name, data);
+          });
         }
+      }
 
-        function setCurrentPrice(elem, name, json) {
-            var currentPriceElem = elem.querySelector(".companyCurrent");
+      function setCurrentPrice(elem, name, json) {
+        var currentPriceElem = elem.querySelector(".companyCurrent");
 
-            if (json === undefined) {
-                currentPriceElem.innerText = "";
-            } else {
-                var dataJSON = JSON.parse(json.contents);
-                for (var c of dataJSON) {
-                    if (c.label.toUpperCase() === name.toUpperCase()) {
-                        currentPriceElem.innerHTML = c.price;
-                        break;
-                    }
-                }
+        if (json === undefined) {
+          currentPriceElem.innerText = "";
+        } else {
+          var dataJSON = {};
+        
+          dataJSON = JSON.parse(json.contents? json.contents:json).contents?JSON.parse(json.contents? json.contents:json).contents :SON.parse(json.contents? json.contents:json);
+            dataJSON = typeof dataJSON === 'string' ? JSON.parse(dataJSON) : dataJSON;
+          for (var c of dataJSON) {
+            if (c.label.toUpperCase() === name.toUpperCase()) {
+              currentPriceElem.innerHTML = c.price;
+              break;
             }
+          }
         }
+      }
 
-        function doCORSRequest(elem, name, options, setCurrentPrice) {
-            var x = new XMLHttpRequest();
-            x.open(options.method, options.url);
-            x.onload = x.onerror = function () {
+      function doCORSRequest(elem, name, options, setCurrentPrice) {
+        var x = new XMLHttpRequest();
+        x.open(options.method, options.url);
+        x.onload = x.onerror = function () {
+            if(x.response === '')
+            {
+                doCORSRequest(elem,name,setCurrentPrice);
+            }
+            else
+            {
                 setCurrentPrice(elem, name, x.response);
-            };
-            if (/^POST/i.test(options.method)) {
-                x.setRequestHeader(
-                    "Content-Type",
-                    "application/x-www-form-urlencoded"
-                );
             }
-            x.send(options.data);
-            x.onerror = function () {
-                setCurrentPrice(elem, name, undefined);
-            };
+          
+        };
+        if (/^POST/i.test(options.method)) {
+          x.setRequestHeader(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          );
         }
+        x.send(options.data);
+        x.onerror = function () {
+          setCurrentPrice(elem, name, undefined);
+        };
+      }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
