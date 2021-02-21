@@ -83,7 +83,7 @@
           {
             method: "GET",
             url:
-              "https://api.allorigins.win/get?callback=myFunc&url=https://www.klsescreener.com/v2/stocks/all.json?term=" +
+              "https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=" +
               name,
           },
           setCurrentPrice
@@ -115,15 +115,9 @@
           currentPriceElem.innerText = "";
         } else {
           var dataJSON = {};
-          
-        if(window.location.href.indexOf('http') >=0 || window.location.href.indexOf('https') >= 0)
-        {
-            dataJSON = JSON.parse(json);
-        }
-        else
-        {
-            dataJSON =  JSON.parse(json.contents);
-        }
+        
+          dataJSON = JSON.parse(json.contents? json.contents:json).contents?JSON.parse(json.contents? json.contents:json).contents :SON.parse(json.contents? json.contents:json);
+            dataJSON = typeof dataJSON === 'string' ? JSON.parse(dataJSON) : dataJSON;
           for (var c of dataJSON) {
             if (c.label.toUpperCase() === name.toUpperCase()) {
               currentPriceElem.innerHTML = c.price;
