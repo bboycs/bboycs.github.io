@@ -137,7 +137,15 @@
         var x = new XMLHttpRequest();
         x.open(options.method, options.url);
         x.onload = x.onerror = function () {
-          setCurrentPrice(elem, name, x.response);
+            if(x.response === '')
+            {
+                doCORSRequest(elem,name,setCurrentPrice);
+            }
+            else
+            {
+                setCurrentPrice(elem, name, x.response);
+            }
+          
         };
         if (/^POST/i.test(options.method)) {
           x.setRequestHeader(
