@@ -117,7 +117,7 @@
           var dataJSON = {};
         
           dataJSON = JSON.parse(json.contents? json.contents:json).contents?JSON.parse(json.contents? json.contents:json).contents :SON.parse(json.contents? json.contents:json);
-
+            dataJSON = typeof dataJSON === 'string' ? JSON.parse(dataJSON) : dataJSON;
           for (var c of dataJSON) {
             if (c.label.toUpperCase() === name.toUpperCase()) {
               currentPriceElem.innerHTML = c.price;
