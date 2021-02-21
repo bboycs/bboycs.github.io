@@ -115,15 +115,9 @@
           currentPriceElem.innerText = "";
         } else {
           var dataJSON = {};
-          
-        if(window.location.href.indexOf('http') >=0 || window.location.href.indexOf('https') >= 0)
-        {
-            dataJSON = JSON.parse(json);
-        }
-        else
-        {
-            dataJSON =  JSON.parse(json.contents);
-        }
+        
+          dataJSON = JSON.parse(json.contents? json.contents:json);
+
           for (var c of dataJSON) {
             if (c.label.toUpperCase() === name.toUpperCase()) {
               currentPriceElem.innerHTML = c.price;
