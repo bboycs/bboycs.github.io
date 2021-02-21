@@ -116,7 +116,7 @@
         } else {
           var dataJSON = {};
         
-          dataJSON = JSON.parse(json.contents? json.contents:json);
+          dataJSON = JSON.parse(json.contents? json.contents:json).contents?JSON.parse(json.contents? json.contents:json).contents :SON.parse(json.contents? json.contents:json);
 
           for (var c of dataJSON) {
             if (c.label.toUpperCase() === name.toUpperCase()) {
