@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="pragma" content="no-cache" />
+    <script type='text/javascript'>
+
+        (function()
+        {
+          if( window.localStorage )
+          {
+            if( !localStorage.getItem('firstLoad') )
+            {
+              localStorage['firstLoad'] = true;
+              location.reload(true);
+            }  
+            else
+              localStorage.removeItem('firstLoad');
+          }
+        })();
+        
+        </script>
     <script
       type="text/javascript"
       src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
