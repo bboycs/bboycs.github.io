@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
     <script
       type="text/javascript"
       src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
@@ -116,7 +119,7 @@
         } else {
           var dataJSON = {};
         
-          dataJSON = JSON.parse(json.contents? json.contents:json).contents?JSON.parse(json.contents? json.contents:json).contents :SON.parse(json.contents? json.contents:json);
+          dataJSON = JSON.parse(json.contents? json.contents:json).contents?JSON.parse(json.contents? json.contents:json).contents :JSON.parse(json.contents? json.contents:json);
             dataJSON = typeof dataJSON === 'string' ? JSON.parse(dataJSON) : dataJSON;
           for (var c of dataJSON) {
             if (c.label.toUpperCase() === name.toUpperCase()) {
