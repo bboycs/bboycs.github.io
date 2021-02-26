@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <script type="text/javascript">
+        (function () {
+            if (window.localStorage) {
+                if (!localStorage.getItem("firstLoad")) {
+                    localStorage["firstLoad"] = true;
+                    location.reload(true);
+                } else localStorage.removeItem("firstLoad");
+            }
+        })();
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("div[onload]").trigger("onload");
+        });
+        function openChart(elem) {
+            var code = elem
+                .querySelector(".companyName")
+                .innerText.match(/\d+/g)[0];
+            window.open("https://www.klsescreener.com/v2/charting/chart/" + code);
+        }
+
+        function dateGenerate() {
+            var currentDate = document.querySelector(".titleDate.nowDate")
+                .innerText;
+            var dateParts = currentDate.split("-");
+
+            var preDateNode = document.querySelector(".titleDate.preDate a");
+            var nextDateNode = document.querySelector(".titleDate.nextDate a");
+            preDateNode.href = "";
+            preDateNode.innerText = "";
+            nextDateNode.href = "";
+            nextDateNode.innerText = "";
+            loopDate(
+                true,
+                new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]),
+                preDateNode
+            );
+            loopDate(
+                false,
+                new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]),
+                nextDateNode
+            );
+        }
+
+        function loopDate(pre, nowDate, docNode) {
+            var tempDate = nowDate;
+            var dateChange = pre ? -1 : 1;
+            for (i = 0; i < 7; i++) {
+                tempDate.setDate(tempDate.getDate() + dateChange);
+                var pDateParts = tempDate.toLocaleDateString().split("/");
+                var pDate =
+                    (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) +
+                    "-" +
+                    (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) +
+                    "-" +
+                    pDateParts[2];
+                var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
+                if (verifywebFile(filePath)) {
+                    docNode.href = filePath;
+                    docNode.innerText = pDate;
+                    break;
+                }
+            }
+        }
+
+        function verifywebFile(filePath) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("HEAD", filePath, false);
+            xhr.send();
+
+            if (xhr.status == "404") {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function loadPrice(elem) {
+            var name = elem.querySelector(".companyName").innerText.split(" ")[0];
+
+            if (
+                window.location.href.indexOf("http") >= 0 ||
+                window.location.href.indexOf("https") >= 0
+            ) {
+                // doCORSRequest(
+                //     elem,
+                //     name,
+                //     {
+                //         method: "GET",
+                //         url:
+                //             "https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=" +
+                //             name,
+                //     },
+                //     setCurrentPrice
+                // );
+                fetch(
+                    `https://api.allorigins.win/get?url=${encodeURIComponent(
+                        `https://www.klsescreener.com/v2/stocks/all.json?term=${name}`
+                    )}`
+                )
+                    .then((response) => {
+                        if (response.ok) return response.json();
+                        else {
+                            return undefined
+                        }
+                    })
+                    .then((data) => {
+                        if (data) {
+                            setCurrentPrice(elem, name, data);
+                        }
+                        else {
+                            setCurrentPrice(elem, name, undefined);
+                        }
+
+                    });
+            } else {
+                fetch(
+                    `https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=` +
+                    name
+                )
+                    .then((response) => {
+                        if (response.ok) return response.json();
+                        else {
+                            setCurrentPrice(elem, name, undefined);
+                            throw new Error("Network response was not ok.");
+                        }
+                    })
+                    .then((data) => {
+                        setCurrentPrice(elem, name, data);
+                    });
+            }
+        }
+
+        function setCurrentPrice(elem, name, json) {
+            var currentPriceElem = elem.querySelector(".companyCurrent");
+
+            if (json === undefined) {
+                currentPriceElem.innerText = "";
+            } else {
+                var dataJSON = {};
+
+                dataJSON = JSON.parse(json.contents ? json.contents : json).contents
+                    ? JSON.parse(json.contents ? json.contents : json).contents
+                    : JSON.parse(json.contents ? json.contents : json);
+                dataJSON =
+                    typeof dataJSON === "string" ? JSON.parse(dataJSON) : dataJSON;
+                for (var c of dataJSON) {
+                    if (c.label.toUpperCase() === name.toUpperCase()) {
+                        currentPriceElem.innerHTML = c.price;
+                        break;
+                    }
+                }
+            }
+        }
+
+        function doCORSRequest(elem, name, options, setCurrentPrice) {
+            var x = new XMLHttpRequest();
+            x.open(options.method, options.url);
+            x.onload = x.onerror = function () {
+                if (x.response === "") {
+                    doCORSRequest(elem, name, setCurrentPrice);
+                } else {
+                    setCurrentPrice(elem, name, x.response);
+                }
+            };
+            if (/^POST/i.test(options.method)) {
+                x.setRequestHeader(
+                    "Content-Type",
+                    "application/x-www-form-urlencoded"
+                );
+            }
+            x.send(options.data);
+            x.onerror = function () {
+                setCurrentPrice(elem, name, undefined);
+            };
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .titleDate {
+            font-size: 5vw;
+            color: #ffffff;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 25%;
+            height: 180px;
+            padding: 10px;
+            background-color: #ffffff;
+            border-color: #000000;
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        .column {
+            color: white;
+            background-color: transparent;
+        }
+            /* green column */
+            .column.green {
+                background-color: #05ac4d;
+            }
+
+            /* red column */
+            .column.red {
+                background-color: #ef3623;
+            }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .row.hidden {
+            visibility: hidden;
+        }
+
+        .dateRow {
+            display: table;
+            width: 100%; /*Optional*/
+            table-layout: fixed; /*Optional*/
+            border-spacing: 10px; /*Optional*/
+        }
+
+        .preDate, .nowDate, .nextDate {
+            display: table-cell;
+        }
+
+        div.companyName, div.companyCode {
+            float: left;
+            width: 100%;
+            font-size: larger;
+        }
+
+        div.companyClose, div.companyChange {
+            float: left;
+            width: 50%;
+            font-size: large;
+        }
+
+        div.companyVol,
+        div.companyCurrent {
+            float: left;
+            width: 50%;
+        }
+
+        div.companyCurrent {
+            text-align: center;
+            background-color: black;
+        }
+
+        div.conditionTitle {
+            color: white;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body style="background-color: #555352" onload="dateGenerate()">
+    <div class="dateRow">
+        <div class="titleDate preDate"><a href="1/1/2021">1/1/2021</a></div>
+        <div class="titleDate nowDate">26-02-2021</div>
+        <div class="titleDate nextDate"><a href="1/1/2021">1/1/2021</a></div>
+    </div>
+    <div class="contentRow">
+        <div class="row">
+        </div>
+    <div class="conditionTitle">Bull</div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">FAREAST ( 5029 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.85</div><div class="companyChange">0.05</div></div><div style="margin-top: 115px;"><div class="companyVol">58700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">HENGYUAN ( 4324 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">6.28</div><div class="companyChange">0.52</div></div><div style="margin-top: 115px;"><div class="companyVol">9522500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">PUNCAK ( 6807 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.475</div><div class="companyChange">0.05</div></div><div style="margin-top: 115px;"><div class="companyVol">163944500</div><div class="companyCurrent"></div></div></div></div><br><br><div class="conditionTitle">ShortGCros</div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">COMCORP ( 7195 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.17</div><div class="companyChange">0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">965500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">KNUSFOR ( 5035 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.91</div><div class="companyChange">0.065</div></div><div style="margin-top: 115px;"><div class="companyVol">26200</div><div class="companyCurrent"></div></div></div></div><br><br><div class="conditionTitle">ShortMCros</div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">FAREAST ( 5029 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.85</div><div class="companyChange">0.05</div></div><div style="margin-top: 115px;"><div class="companyVol">58700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">GUOCO ( 1503 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.62</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">214600</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">HOHUP ( 5169 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.465</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">2776900</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">KIMHIN ( 5371 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.81</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">400</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">KNM ( 7164 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.2</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">35860800</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">LAYHONG ( 9385 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.34</div><div class="companyChange">-0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">3107300</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">LHI ( 6633 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.7</div><div class="companyChange">-0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">740300</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">LTKM ( 7085 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">30000</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">ORNA ( 5065 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.81</div><div class="companyChange">-0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">706600</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">WCT ( 9679 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.52</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">25009000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">YNHPROP ( 3158 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.81</div><div class="companyChange">0.09</div></div><div style="margin-top: 115px;"><div class="companyVol">159300</div><div class="companyCurrent"></div></div></div></div><br><br></div>
+</body>
+</html>
