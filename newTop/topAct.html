@@ -1,256 +1,263 @@
 ﻿<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script
-      type="text/javascript"
-      src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"
-    ></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 
     <script>
-      function callculate() {
-        var historical = {};
-        $.getJSON(
-          'https://bboycs.github.io/newTop/topActive.json',
-          function (data) {
-            historical = data;
+        function callculate() {
 
-            var activeCompany = document.querySelector('.inputActiveList')
-              .value;
-            var companies = activeCompany.split(',');
+            resetTable();
 
-            for (var i = 0; i < companies.length; i++) {
-              checkExist(companies[i], data);
+            var historical = {};
+            $.getJSON(
+                'https://bboycs.github.io/newTop/topActive.json',
+                function (data) {
+                    historical = data;
+
+                    var activeCompany = document.querySelector('.inputActiveList')
+                        .value;
+                    var companies = activeCompany.split(',');
+
+                    for (var i = 0; i < companies.length; i++) {
+                        checkExist(companies[i], data);
+                    }
+
+                    sortable();
+                }
+            );
+        }
+
+        function resetTable() {
+            var table = document.querySelector('.topactivehistorytable');
+            var trsLength = table.rows.length;
+
+            for (i = trsLength; i > 1; i--) {
+                table.deleteRow(i-1); 
             }
 
-            sortable();
-          }
-        );
-      }
+        }
 
-      function sortable() {
-        var table, rows, switching, i, x, y, shouldSwitch;
-        table = document.querySelector('.topactivehistorytable');
-        switching = true;
-        /*Make a loop that will continue until
-      no switching has been done:*/
-        while (switching) {
-          //start by saying: no switching is done:
-          switching = false;
-          rows = table.rows;
-          /*Loop through all table rows (except the
-        first, which contains table headers):*/
-          for (i = 1; i < rows.length - 1; i++) {
-            //start by saying there should be no switching:
-            shouldSwitch = false;
-            /*Get the two elements you want to compare,
-          one from current row and one from the next:*/
-            x = rows[i].getElementsByTagName('TD')[1];
-            y = rows[i + 1].getElementsByTagName('TD')[1];
-            //check if the two rows should switch place:
-            if (parseInt(x.innerHTML, 10) > parseInt(y.innerHTML, 10)) {
-              //if so, mark as a switch and break the loop:
-              shouldSwitch = true;
-              break;
-            }
-          }
-          if (shouldSwitch) {
-            /*If a switch has been marked, make the switch
-          and mark that a switch has been done:*/
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        function sortable() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.querySelector('.topactivehistorytable');
             switching = true;
-          }
-        }
-      }
-
-      function checkExist(company, data) {
-        var counter = 0;
-        var lastDate = '';
-        var companyName;
-        companyName = company;
-        for (var k in data) {
-          if (data.hasOwnProperty(k)) {
-            for (var c of data[k]) {
-              if (c['companyName'] === company) {
-                counter = counter + 1;
-
-                var date2 = new Date();
-
-                var dateParts = k.split('/');
-
-                var date1 = new Date(
-                  +dateParts[2],
-                  dateParts[1] - 1,
-                  +dateParts[0]
-                );
-                var difference = date2.getTime() - date1.getTime();
-                var days = Math.floor(difference / (1000 * 3600 * 24));
-                lastDate = `${k} (${days} days)`;
-              }
+            /*Make a loop that will continue until
+          no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /*Loop through all table rows (except the
+              first, which contains table headers):*/
+                for (i = 1; i < rows.length - 1; i++) {
+                    //start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /*Get the two elements you want to compare,
+                  one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName('TD')[1];
+                    y = rows[i + 1].getElementsByTagName('TD')[1];
+                    //check if the two rows should switch place:
+                    if (parseInt(x.innerHTML, 10) > parseInt(y.innerHTML, 10)) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /*If a switch has been marked, make the switch
+                  and mark that a switch has been done:*/
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
             }
-          }
-          addtoTable(companyName, counter, lastDate);
         }
-      }
 
-      function addtoTable(companyName, counter, lastdate) {
-        var table = document.querySelector('.topactivehistorytable');
-        var rowIndex = table.querySelectorAll('tr');
-        var row = table.insertRow(rowIndex.length);
-        var cellCompanyName = row.insertCell(0);
-        var cellCounter = row.insertCell(1);
-        var cellLastdate = row.insertCell(2);
-        cellCompanyName.innerHTML = companyName;
-        cellCounter.innerHTML = counter;
-        cellLastdate.innerHTML = lastdate;
-      }
+        function checkExist(company, data) {
+            var counter = 0;
+            var lastDate = '';
+            var companyName;
+            companyName = company;
+            for (var k in data) {
+                if (data.hasOwnProperty(k)) {
+                    for (var c of data[k]) {
+                        if (c['companyName'] === company) {
+                            counter = counter + 1;
+
+                            var date2 = new Date();
+
+                            var dateParts = k.split('/');
+
+                            var date1 = new Date(
+                                +dateParts[2],
+                                dateParts[1] - 1,
+                                +dateParts[0]
+                            );
+                            var difference = date2.getTime() - date1.getTime();
+                            var days = Math.floor(difference / (1000 * 3600 * 24));
+                            lastDate = `${k} (${days} days)`;
+                        }
+                    }
+                }
+            }
+            addtoTable(companyName, counter, lastDate);
+        }
+
+        function addtoTable(companyName, counter, lastdate) {
+            var table = document.querySelector('.topactivehistorytable');
+            var rowIndex = table.querySelectorAll('tr');
+            var row = table.insertRow(rowIndex.length);
+            var cellCompanyName = row.insertCell(0);
+            var cellCounter = row.insertCell(1);
+            var cellLastdate = row.insertCell(2);
+            cellCompanyName.innerHTML = companyName;
+            cellCounter.innerHTML = counter;
+            cellLastdate.innerHTML = lastdate;
+        }
     </script>
     <style>
-      body {
-        font-family: Arial;
-        color: black;
-      }
+        body {
+            font-family: Arial;
+            color: black;
+        }
 
-      .split.left {
-        width: 30%;
-      }
+        .split.left {
+            width: 30%;
+        }
 
-      .split.right {
-        width: 70%;
-      }
+        .split.right {
+            width: 70%;
+        }
 
-      .split {
-        height: 100%;
-        width: 50%;
-        position: fixed;
-        z-index: 1;
-        top: 50px;
-        overflow-x: hidden;
-        padding-top: 20px;
-      }
+        .split {
+            height: 100%;
+            width: 50%;
+            position: fixed;
+            z-index: 1;
+            top: 50px;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
 
-      .left {
-        left: 0;
-        border-style: solid;
-        border-width: 5px;
-        border-color: black;
-      }
+        .left {
+            left: 0;
+            border-style: solid;
+            border-width: 5px;
+            border-color: black;
+        }
 
-      .right {
-        right: 0;
-        border-style: solid;
-        border-width: 5px;
-        border-color: black;
-      }
+        .right {
+            right: 0;
+            border-style: solid;
+            border-width: 5px;
+            border-color: black;
+        }
 
-      .centered {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-      }
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
 
-      .centered img {
-        width: 150px;
-        border-radius: 50%;
-      }
+            .centered img {
+                width: 150px;
+                border-radius: 50%;
+            }
 
-      .inputActiveList {
-        position: absolute;
-        left: 20px;
-        resize: none;
-        width: 500px;
-        height: 650px;
-        font-size: 25px;
-      }
+        .inputActiveList {
+            position: absolute;
+            left: 20px;
+            resize: none;
+            width: 500px;
+            height: 650px;
+            font-size: 25px;
+        }
 
-      .tablediv {
-        position: absolute;
-        height: 650px;
-        width: 100%;
-      }
+        .tablediv {
+            position: absolute;
+            height: 650px;
+            width: 100%;
+        }
 
-      .topactivehistorytable {
-        position: absolute;
-        left: 20px;
-        width: 100%;
-        font-family: Arial, Helvetica, sans-serif;
-      }
+        .topactivehistorytable {
+            position: absolute;
+            left: 20px;
+            width: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-      .topactivehistorytable th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: center;
-        vertical-align: middle;
-        background-color: black;
-        color: white;
-      }
+            .topactivehistorytable th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: center;
+                vertical-align: middle;
+                background-color: black;
+                color: white;
+            }
 
-      .topactivehistorytable tr {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: center;
-        vertical-align: middle;
-        background-color: azure;
-      }
+            .topactivehistorytable tr {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: center;
+                vertical-align: middle;
+                background-color: azure;
+            }
 
-      .topactivehistorytable tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
+                .topactivehistorytable tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
 
-      .dataprocess {
-        position: absolute;
-        left: 20%;
-        top: 75%;
-        color: #20bf6b !important;
-        text-transform: uppercase;
-        background: #ffffff;
-        padding: 20px;
-        border: 4px solid #20bf6b !important;
-        border-radius: 6px;
-        display: inline-block;
-        transition: all 0.3s ease 0s;
-      }
+        .dataprocess {
+            position: absolute;
+            left: 20%;
+            top: 75%;
+            color: #20bf6b !important;
+            text-transform: uppercase;
+            background: #ffffff;
+            padding: 20px;
+            border: 4px solid #20bf6b !important;
+            border-radius: 6px;
+            display: inline-block;
+            transition: all 0.3s ease 0s;
+        }
 
-      .dataprocess:hover {
-        color: #494949 !important;
-        border-radius: 50px;
-        border-color: #494949 !important;
-        transition: all 0.3s ease 0s;
-      }
+            .dataprocess:hover {
+                color: #494949 !important;
+                border-radius: 50px;
+                border-color: #494949 !important;
+                transition: all 0.3s ease 0s;
+            }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div>
-      <div>Top Active history checker</div>
-      <div class="split left">
-        <div>
-          <textarea
-            name="Text1"
-            class="inputActiveList"
-            cols="70"
-            rows="50"
-          ></textarea>
+        <div>Top Active history checker</div>
+        <div class="split left">
+            <div>
+                <textarea name="Text1"
+                          class="inputActiveList"
+                          cols="70"
+                          rows="50"></textarea>
+            </div>
+            <div class="dataprocess">
+                <a class="calculate" onclick="callculate()" rel="nofollow noopener">Calculate</a>
+            </div>
         </div>
-        <div class="dataprocess">
-          <a class="calculate" onclick="callculate()" rel="nofollow noopener"
-            >Calculate</a
-          >
-        </div>
-      </div>
 
-      <div class="split right">
-        <div class="tablediv">
-          <table class="topactivehistorytable">
-            <tr>
-              <th>Company</th>
-              <th>Found</th>
-              <th>LastDate</th>
-            </tr>
-          </table>
+        <div class="split right">
+            <div class="tablediv">
+                <table class="topactivehistorytable">
+                    <tr>
+                        <th>Company</th>
+                        <th>Found</th>
+                        <th>LastDate</th>
+                    </tr>
+                </table>
+            </div>
         </div>
-      </div>
     </div>
-  </body>
+</body>
 </html>
