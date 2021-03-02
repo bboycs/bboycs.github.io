@@ -104,5 +104,95 @@
       "companyName": "TECHNAX",
       "companyCode": "2739"
     }
+  ],
+  "2/3/2021": [
+    {
+      "companyName": "AIMFLEX",
+      "companyCode": "0209"
+    },
+    {
+      "companyName": "STRAITS",
+      "companyCode": "0080"
+    },
+    {
+      "companyName": "GFM",
+      "companyCode": "0039"
+    },
+    {
+      "companyName": "GRANFLO",
+      "companyCode": "0056"
+    },
+    {
+      "companyName": "AAX",
+      "companyCode": "5238"
+    },
+    {
+      "companyName": "AT",
+      "companyCode": "0072"
+    },
+    {
+      "companyName": "PICORP",
+      "companyCode": "7201"
+    },
+    {
+      "companyName": "KOMARK",
+      "companyCode": "7017"
+    },
+    {
+      "companyName": "TFP",
+      "companyCode": "0145"
+    },
+    {
+      "companyName": "ABLEGRP",
+      "companyCode": "7086"
+    },
+    {
+      "companyName": "PHB",
+      "companyCode": "4464"
+    },
+    {
+      "companyName": "PERMAJU",
+      "companyCode": "7080"
+    },
+    {
+      "companyName": "MESTRON",
+      "companyCode": "0207"
+    },
+    {
+      "companyName": "AIRASIA",
+      "companyCode": "5099"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "DYNACIA",
+      "companyCode": "5178"
+    },
+    {
+      "companyName": "MTRONIC",
+      "companyCode": "0043"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "KTG",
+      "companyCode": "7165"
+    },
+    {
+      "companyName": "ARMADA",
+      "companyCode": "5210"
+    },
+    {
+      "companyName": "EAH",
+      "companyCode": "0154"
+    },
+    {
+      "companyName": "EDEN",
+      "companyCode": "7471"
+    }
   ]
 }
