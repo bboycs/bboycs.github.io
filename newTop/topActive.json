@@ -300,5 +300,103 @@
       "companyName": "TECHNAX",
       "companyCode": "2739"
     }
+  ],
+  "4/3/2021": [
+    {
+      "companyName": "XOX",
+      "companyCode": "0165"
+    },
+    {
+      "companyName": "KGROUP",
+      "companyCode": "0036"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "ASIAPAC",
+      "companyCode": "4057"
+    },
+    {
+      "companyName": "MINETEC",
+      "companyCode": "7219"
+    },
+    {
+      "companyName": "GOCEAN",
+      "companyCode": "0074"
+    },
+    {
+      "companyName": "GFM",
+      "companyCode": "0039"
+    },
+    {
+      "companyName": "MSM",
+      "companyCode": "5202"
+    },
+    {
+      "companyName": "ITRONIC",
+      "companyCode": "9393"
+    },
+    {
+      "companyName": "NOVAMSC",
+      "companyCode": "0026"
+    },
+    {
+      "companyName": "MMCCORP",
+      "companyCode": "2194"
+    },
+    {
+      "companyName": "HIAPTEK",
+      "companyCode": "5072"
+    },
+    {
+      "companyName": "SEALINK",
+      "companyCode": "5145"
+    },
+    {
+      "companyName": "ANZO",
+      "companyCode": "9342"
+    },
+    {
+      "companyName": "AIMFLEX",
+      "companyCode": "0209"
+    },
+    {
+      "companyName": "DATAPRP",
+      "companyCode": "8338"
+    },
+    {
+      "companyName": "ARMADA",
+      "companyCode": "5210"
+    },
+    {
+      "companyName": "GRANFLO",
+      "companyCode": "0056"
+    },
+    {
+      "companyName": "KOMARK",
+      "companyCode": "7017"
+    },
+    {
+      "companyName": "AT",
+      "companyCode": "0072"
+    },
+    {
+      "companyName": "GREENYB",
+      "companyCode": "0136"
+    },
+    {
+      "companyName": "MPAY",
+      "companyCode": "0156"
+    },
+    {
+      "companyName": "IRIS",
+      "companyCode": "0010"
+    },
+    {
+      "companyName": "KANGER",
+      "companyCode": "0170"
+    }
   ]
 }
