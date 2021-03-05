@@ -398,5 +398,103 @@
       "companyName": "KANGER",
       "companyCode": "0170"
     }
+  ],
+  "5/3/2021": [
+    {
+      "companyName": "KOMARK",
+      "companyCode": "7017"
+    },
+    {
+      "companyName": "VELESTO",
+      "companyCode": "5243"
+    },
+    {
+      "companyName": "ARMADA",
+      "companyCode": "5210"
+    },
+    {
+      "companyName": "THHEAVY",
+      "companyCode": "7206"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "SEALINK",
+      "companyCode": "5145"
+    },
+    {
+      "companyName": "TECHNAX",
+      "companyCode": "2739"
+    },
+    {
+      "companyName": "SYF",
+      "companyCode": "7082"
+    },
+    {
+      "companyName": "MEDIAC",
+      "companyCode": "5090"
+    },
+    {
+      "companyName": "XOX",
+      "companyCode": "0165"
+    },
+    {
+      "companyName": "CONNECT",
+      "companyCode": "0102"
+    },
+    {
+      "companyName": "KNM",
+      "companyCode": "7164"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "AIMFLEX",
+      "companyCode": "0209"
+    },
+    {
+      "companyName": "LUSTER",
+      "companyCode": "5068"
+    },
+    {
+      "companyName": "MQTECH",
+      "companyCode": "0070"
+    },
+    {
+      "companyName": "STRAITS",
+      "companyCode": "0080"
+    },
+    {
+      "companyName": "NOVAMSC",
+      "companyCode": "0026"
+    },
+    {
+      "companyName": "MMCCORP",
+      "companyCode": "2194"
+    },
+    {
+      "companyName": "ARTRONIQ",
+      "companyCode": "0038"
+    },
+    {
+      "companyName": "PHB",
+      "companyCode": "4464"
+    },
+    {
+      "companyName": "KANGER",
+      "companyCode": "0170"
+    },
+    {
+      "companyName": "HIBISCS",
+      "companyCode": "5199"
+    },
+    {
+      "companyName": "BORNOIL",
+      "companyCode": "7036"
+    }
   ]
 }
