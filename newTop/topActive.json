@@ -496,5 +496,99 @@
       "companyName": "BORNOIL",
       "companyCode": "7036"
     }
+  ],
+  "8/3/2021": [
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "SEALINK",
+      "companyCode": "5145"
+    },
+    {
+      "companyName": "KOMARK",
+      "companyCode": "7017"
+    },
+    {
+      "companyName": "VELESTO",
+      "companyCode": "5243"
+    },
+    {
+      "companyName": "KNM",
+      "companyCode": "7164"
+    },
+    {
+      "companyName": "ARMADA",
+      "companyCode": "5210"
+    },
+    {
+      "companyName": "TAWIN",
+      "companyCode": "7097"
+    },
+    {
+      "companyName": "MLAB",
+      "companyCode": "0085"
+    },
+    {
+      "companyName": "AAX",
+      "companyCode": "5238"
+    },
+    {
+      "companyName": "TECHNAX",
+      "companyCode": "2739"
+    },
+    {
+      "companyName": "ALAM",
+      "companyCode": "5115"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "PERMAJU",
+      "companyCode": "7080"
+    },
+    {
+      "companyName": "MBSB",
+      "companyCode": "1171"
+    },
+    {
+      "companyName": "HIBISCS",
+      "companyCode": "5199"
+    },
+    {
+      "companyName": "PASUKGB",
+      "companyCode": "0177"
+    },
+    {
+      "companyName": "ARTRONIQ",
+      "companyCode": "0038"
+    },
+    {
+      "companyName": "AIRASIA",
+      "companyCode": "5099"
+    },
+    {
+      "companyName": "MMCCORP",
+      "companyCode": "2194"
+    },
+    {
+      "companyName": "XOX",
+      "companyCode": "0165"
+    },
+    {
+      "companyName": "KANGER",
+      "companyCode": "0170"
+    },
+    {
+      "companyName": "AIMFLEX",
+      "companyCode": "0209"
+    }
   ]
 }
