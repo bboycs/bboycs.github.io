@@ -696,5 +696,107 @@
       "companyName": "ANZO",
       "companyCode": "9342"
     }
+  ],
+  "10/3/2021": [
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "SAUDEE",
+      "companyCode": "5157"
+    },
+    {
+      "companyName": "PUNCAK",
+      "companyCode": "6807"
+    },
+    {
+      "companyName": "WIDAD",
+      "companyCode": "0162"
+    },
+    {
+      "companyName": "DSONIC",
+      "companyCode": "5216"
+    },
+    {
+      "companyName": "GFM",
+      "companyCode": "0039"
+    },
+    {
+      "companyName": "KTG",
+      "companyCode": "7165"
+    },
+    {
+      "companyName": "MSM",
+      "companyCode": "5202"
+    },
+    {
+      "companyName": "MPAY",
+      "companyCode": "0156"
+    },
+    {
+      "companyName": "KANGER",
+      "companyCode": "0170"
+    },
+    {
+      "companyName": "MMCCORP",
+      "companyCode": "2194"
+    },
+    {
+      "companyName": "BCMALL",
+      "companyCode": "0187"
+    },
+    {
+      "companyName": "PHB",
+      "companyCode": "4464"
+    },
+    {
+      "companyName": "JADI",
+      "companyCode": "7223"
+    },
+    {
+      "companyName": "AIRASIA",
+      "companyCode": "5099"
+    },
+    {
+      "companyName": "SCBUILD",
+      "companyCode": "0109"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "KEYASIC",
+      "companyCode": "0143"
+    },
+    {
+      "companyName": "AAX",
+      "companyCode": "5238"
+    },
+    {
+      "companyName": "CENSOF",
+      "companyCode": "5195"
+    },
+    {
+      "companyName": "DATAPRP",
+      "companyCode": "8338"
+    },
+    {
+      "companyName": "KPS",
+      "companyCode": "5843"
+    },
+    {
+      "companyName": "ARBB",
+      "companyCode": "7181"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "TOPGLOV",
+      "companyCode": "7113"
+    }
   ]
 }
