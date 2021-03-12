@@ -896,5 +896,107 @@
       "companyName": "ARMADA",
       "companyCode": "5210"
     }
+  ],
+  "12/3/2021": [
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "EAH",
+      "companyCode": "0154"
+    },
+    {
+      "companyName": "XOX",
+      "companyCode": "0165"
+    },
+    {
+      "companyName": "AT",
+      "companyCode": "0072"
+    },
+    {
+      "companyName": "GFM",
+      "companyCode": "0039"
+    },
+    {
+      "companyName": "DOLPHIN",
+      "companyCode": "5265"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "IRIS",
+      "companyCode": "0010"
+    },
+    {
+      "companyName": "SAUDEE",
+      "companyCode": "5157"
+    },
+    {
+      "companyName": "OPCOM",
+      "companyCode": "0035"
+    },
+    {
+      "companyName": "JAG",
+      "companyCode": "0024"
+    },
+    {
+      "companyName": "VELESTO",
+      "companyCode": "5243"
+    },
+    {
+      "companyName": "TAWIN",
+      "companyCode": "7097"
+    },
+    {
+      "companyName": "TECFAST",
+      "companyCode": "0084"
+    },
+    {
+      "companyName": "AIMFLEX",
+      "companyCode": "0209"
+    },
+    {
+      "companyName": "CUSCAPI",
+      "companyCode": "0051"
+    },
+    {
+      "companyName": "PERMAJU",
+      "companyCode": "7080"
+    },
+    {
+      "companyName": "PASUKGB",
+      "companyCode": "0177"
+    },
+    {
+      "companyName": "AVI",
+      "companyCode": "8885"
+    },
+    {
+      "companyName": "ASB",
+      "companyCode": "1481"
+    },
+    {
+      "companyName": "AIRASIA",
+      "companyCode": "5099"
+    },
+    {
+      "companyName": "WIDAD",
+      "companyCode": "0162"
+    },
+    {
+      "companyName": "CENSOF",
+      "companyCode": "5195"
+    },
+    {
+      "companyName": "KOMARK",
+      "companyCode": "7017"
+    },
+    {
+      "companyName": "GRANFLO",
+      "companyCode": "0056"
+    }
   ]
 }
