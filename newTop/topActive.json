@@ -1418,5 +1418,99 @@
       "companyName": "JAG",
       "companyCode": "0024"
     }
+  ],
+  "19/3/2021": [
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "WIDAD",
+      "companyCode": "0162"
+    },
+    {
+      "companyName": "BORNOIL",
+      "companyCode": "7036"
+    },
+    {
+      "companyName": "CUSCAPI",
+      "companyCode": "0051"
+    },
+    {
+      "companyName": "G3",
+      "companyCode": "7184"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "YONGTAI",
+      "companyCode": "7066"
+    },
+    {
+      "companyName": "HIAPTEK",
+      "companyCode": "5072"
+    },
+    {
+      "companyName": "SCOMI",
+      "companyCode": "7158"
+    },
+    {
+      "companyName": "AAX",
+      "companyCode": "5238"
+    },
+    {
+      "companyName": "UCREST",
+      "companyCode": "0005"
+    },
+    {
+      "companyName": "MQTECH",
+      "companyCode": "0070"
+    },
+    {
+      "companyName": "COMPUGT",
+      "companyCode": "5037"
+    },
+    {
+      "companyName": "KTG",
+      "companyCode": "7165"
+    },
+    {
+      "companyName": "PHB",
+      "companyCode": "4464"
+    },
+    {
+      "companyName": "ARMADA",
+      "companyCode": "5210"
+    },
+    {
+      "companyName": "MINDA",
+      "companyCode": "5166"
+    },
+    {
+      "companyName": "DSONIC",
+      "companyCode": "5216"
+    },
+    {
+      "companyName": "MAG",
+      "companyCode": "0095"
+    },
+    {
+      "companyName": "BARAKAH",
+      "companyCode": "7251"
+    },
+    {
+      "companyName": "GRANFLO",
+      "companyCode": "0056"
+    },
+    {
+      "companyName": "TAWIN",
+      "companyCode": "7097"
+    },
+    {
+      "companyName": "KOMARK",
+      "companyCode": "7017"
+    }
   ]
 }
