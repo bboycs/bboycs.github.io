@@ -1606,5 +1606,103 @@
       "companyName": "KANGER",
       "companyCode": "0170"
     }
+  ],
+  "23/3/2021": [
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "DYNACIA",
+      "companyCode": "5178"
+    },
+    {
+      "companyName": "WIDAD",
+      "companyCode": "0162"
+    },
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "DATAPRP",
+      "companyCode": "8338"
+    },
+    {
+      "companyName": "SAUDEE",
+      "companyCode": "5157"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "G3",
+      "companyCode": "7184"
+    },
+    {
+      "companyName": "VELESTO",
+      "companyCode": "5243"
+    },
+    {
+      "companyName": "QES",
+      "companyCode": "0196"
+    },
+    {
+      "companyName": "MCLEAN",
+      "companyCode": "0167"
+    },
+    {
+      "companyName": "PERMAJU",
+      "companyCode": "7080"
+    },
+    {
+      "companyName": "AIRASIA",
+      "companyCode": "5099"
+    },
+    {
+      "companyName": "HUBLINE",
+      "companyCode": "7013"
+    },
+    {
+      "companyName": "DSONIC",
+      "companyCode": "5216"
+    },
+    {
+      "companyName": "SANICHI",
+      "companyCode": "0133"
+    },
+    {
+      "companyName": "SCOMI",
+      "companyCode": "7158"
+    },
+    {
+      "companyName": "MMCCORP",
+      "companyCode": "2194"
+    },
+    {
+      "companyName": "PASUKGB",
+      "companyCode": "0177"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "AT",
+      "companyCode": "0072"
+    },
+    {
+      "companyName": "MMAG",
+      "companyCode": "0034"
+    },
+    {
+      "companyName": "HIAPTEK",
+      "companyCode": "5072"
+    },
+    {
+      "companyName": "UCREST",
+      "companyCode": "0005"
+    }
   ]
 }
