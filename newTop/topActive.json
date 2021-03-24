@@ -1704,5 +1704,107 @@
       "companyName": "UCREST",
       "companyCode": "0005"
     }
+  ],
+  "24/3/2021": [
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "MMAG",
+      "companyCode": "0034"
+    },
+    {
+      "companyName": "GOCEAN",
+      "companyCode": "0074"
+    },
+    {
+      "companyName": "SMI",
+      "companyCode": "4375"
+    },
+    {
+      "companyName": "YONGTAI",
+      "companyCode": "7066"
+    },
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "SAUDEE",
+      "companyCode": "5157"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "DPS",
+      "companyCode": "7198"
+    },
+    {
+      "companyName": "NEXGRAM",
+      "companyCode": "0096"
+    },
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "SCOMI",
+      "companyCode": "7158"
+    },
+    {
+      "companyName": "WIDAD",
+      "companyCode": "0162"
+    },
+    {
+      "companyName": "TECFAST",
+      "companyCode": "0084"
+    },
+    {
+      "companyName": "VELESTO",
+      "companyCode": "5243"
+    },
+    {
+      "companyName": "KANGER",
+      "companyCode": "0170"
+    },
+    {
+      "companyName": "QES",
+      "companyCode": "0196"
+    },
+    {
+      "companyName": "KOMARK",
+      "companyCode": "7017"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "AIRASIA",
+      "companyCode": "5099"
+    },
+    {
+      "companyName": "TELADAN",
+      "companyCode": "0230"
+    },
+    {
+      "companyName": "AT",
+      "companyCode": "0072"
+    },
+    {
+      "companyName": "UCREST",
+      "companyCode": "0005"
+    },
+    {
+      "companyName": "LKL",
+      "companyCode": "0182"
+    },
+    {
+      "companyName": "HIAPTEK",
+      "companyCode": "5072"
+    }
   ]
 }
