@@ -1806,5 +1806,103 @@
       "companyName": "HIAPTEK",
       "companyCode": "5072"
     }
+  ],
+  "25/3/2021": [
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "SAUDEE",
+      "companyCode": "5157"
+    },
+    {
+      "companyName": "MMAG",
+      "companyCode": "0034"
+    },
+    {
+      "companyName": "HBGLOB",
+      "companyCode": "5187"
+    },
+    {
+      "companyName": "MATANG",
+      "companyCode": "0189"
+    },
+    {
+      "companyName": "VELESTO",
+      "companyCode": "5243"
+    },
+    {
+      "companyName": "TAWIN",
+      "companyCode": "7097"
+    },
+    {
+      "companyName": "SEALINK",
+      "companyCode": "5145"
+    },
+    {
+      "companyName": "KANGER",
+      "companyCode": "0170"
+    },
+    {
+      "companyName": "YONGTAI",
+      "companyCode": "7066"
+    },
+    {
+      "companyName": "SDS",
+      "companyCode": "0212"
+    },
+    {
+      "companyName": "SCOMI",
+      "companyCode": "7158"
+    },
+    {
+      "companyName": "UCREST",
+      "companyCode": "0005"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "NWP",
+      "companyCode": "5025"
+    },
+    {
+      "companyName": "VIVOCOM",
+      "companyCode": "0069"
+    },
+    {
+      "companyName": "SYMLIFE",
+      "companyCode": "1538"
+    },
+    {
+      "companyName": "DPS",
+      "companyCode": "7198"
+    },
+    {
+      "companyName": "MAG",
+      "companyCode": "0095"
+    },
+    {
+      "companyName": "ASIAPLY",
+      "companyCode": "0105"
+    },
+    {
+      "companyName": "PASUKGB",
+      "companyCode": "0177"
+    },
+    {
+      "companyName": "PDZ",
+      "companyCode": "6254"
+    }
   ]
 }
