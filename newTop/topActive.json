@@ -1904,5 +1904,107 @@
       "companyName": "PDZ",
       "companyCode": "6254"
     }
+  ],
+  "29/3/2021": [
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "WIDAD",
+      "companyCode": "0162"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "PHB",
+      "companyCode": "4464"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "KANGER",
+      "companyCode": "0170"
+    },
+    {
+      "companyName": "STRAITS",
+      "companyCode": "0080"
+    },
+    {
+      "companyName": "MMAG",
+      "companyCode": "0034"
+    },
+    {
+      "companyName": "DSONIC",
+      "companyCode": "5216"
+    },
+    {
+      "companyName": "SAUDEE",
+      "companyCode": "5157"
+    },
+    {
+      "companyName": "MESTRON",
+      "companyCode": "0207"
+    },
+    {
+      "companyName": "SOLUTN",
+      "companyCode": "0093"
+    },
+    {
+      "companyName": "L&G",
+      "companyCode": "3174"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "SCOMI",
+      "companyCode": "7158"
+    },
+    {
+      "companyName": "VELESTO",
+      "companyCode": "5243"
+    },
+    {
+      "companyName": "PASUKGB",
+      "companyCode": "0177"
+    },
+    {
+      "companyName": "KTG",
+      "companyCode": "7165"
+    },
+    {
+      "companyName": "JADI",
+      "companyCode": "7223"
+    },
+    {
+      "companyName": "HBGLOB",
+      "companyCode": "5187"
+    },
+    {
+      "companyName": "TAWIN",
+      "companyCode": "7097"
+    },
+    {
+      "companyName": "WILLOW",
+      "companyCode": "0008"
+    },
+    {
+      "companyName": "MATANG",
+      "companyCode": "0189"
+    },
+    {
+      "companyName": "HIAPTEK",
+      "companyCode": "5072"
+    }
   ]
 }
