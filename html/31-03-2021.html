@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <script type="text/javascript">
+        (function () {
+            if (window.localStorage) {
+                if (!localStorage.getItem("firstLoad")) {
+                    localStorage["firstLoad"] = true;
+                    location.reload(true);
+                } else localStorage.removeItem("firstLoad");
+            }
+        })();
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("div[onload]").trigger("onload");
+        });
+        function openChart(elem) {
+            var code = elem
+                .querySelector(".companyName")
+                .innerText.match(/\d+/g)[0];
+            window.open("https://www.klsescreener.com/v2/charting/chart/" + code);
+        }
+
+        function dateGenerate() {
+            var currentDate = document.querySelector(".titleDate.nowDate")
+                .innerText;
+            var dateParts = currentDate.split("-");
+
+            var preDateNode = document.querySelector(".titleDate.preDate a");
+            var nextDateNode = document.querySelector(".titleDate.nextDate a");
+            preDateNode.href = "";
+            preDateNode.innerText = "";
+            nextDateNode.href = "";
+            nextDateNode.innerText = "";
+            loopDate(
+                true,
+                new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]),
+                preDateNode
+            );
+            loopDate(
+                false,
+                new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]),
+                nextDateNode
+            );
+        }
+
+        function loopDate(pre, nowDate, docNode) {
+            var tempDate = nowDate;
+            var dateChange = pre ? -1 : 1;
+            for (i = 0; i < 7; i++) {
+                tempDate.setDate(tempDate.getDate() + dateChange);
+                var pDateParts = tempDate.toLocaleDateString().split("/");
+                var pDate =
+                    (pDateParts[1].length > 1 ? pDateParts[1] : "0" + pDateParts[1]) +
+                    "-" +
+                    (pDateParts[0].length > 1 ? pDateParts[0] : "0" + pDateParts[0]) +
+                    "-" +
+                    pDateParts[2];
+                var filePath = "https://bboycs.github.io/html/" + pDate + ".html";
+                if (verifywebFile(filePath)) {
+                    docNode.href = filePath;
+                    docNode.innerText = pDate;
+                    break;
+                }
+            }
+        }
+
+        function verifywebFile(filePath) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("HEAD", filePath, false);
+            xhr.send();
+
+            if (xhr.status == "404") {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function loadPrice(elem) {
+            var name = elem.querySelector(".companyName").innerText.split(" ")[0];
+
+            if (
+                window.location.href.indexOf("http") >= 0 ||
+                window.location.href.indexOf("https") >= 0
+            ) {
+                // doCORSRequest(
+                //     elem,
+                //     name,
+                //     {
+                //         method: "GET",
+                //         url:
+                //             "https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=" +
+                //             name,
+                //     },
+                //     setCurrentPrice
+                // );
+                fetch(
+                    `https://api.allorigins.win/get?url=${encodeURIComponent(
+                        `https://www.klsescreener.com/v2/stocks/all.json?term=${name}`
+                    )}`
+                )
+                    .then((response) => {
+                        if (response.ok) return response.json();
+                        else {
+                            return undefined
+                        }
+                    })
+                    .then((data) => {
+                        if (data) {
+                            setCurrentPrice(elem, name, data);
+                        }
+                        else {
+                            setCurrentPrice(elem, name, undefined);
+                        }
+
+                    });
+            } else {
+                fetch(
+                    `https://api.allorigins.win/get?url=https://www.klsescreener.com/v2/stocks/all.json?term=` +
+                    name
+                )
+                    .then((response) => {
+                        if (response.ok) return response.json();
+                        else {
+                            setCurrentPrice(elem, name, undefined);
+                            throw new Error("Network response was not ok.");
+                        }
+                    })
+                    .then((data) => {
+                        setCurrentPrice(elem, name, data);
+                    });
+            }
+        }
+
+        function setCurrentPrice(elem, name, json) {
+            var currentPriceElem = elem.querySelector(".companyCurrent");
+
+            if (json === undefined) {
+                currentPriceElem.innerText = "";
+            } else {
+                var dataJSON = {};
+
+                dataJSON = JSON.parse(json.contents ? json.contents : json).contents
+                    ? JSON.parse(json.contents ? json.contents : json).contents
+                    : JSON.parse(json.contents ? json.contents : json);
+                dataJSON =
+                    typeof dataJSON === "string" ? JSON.parse(dataJSON) : dataJSON;
+                for (var c of dataJSON) {
+                    if (c.label.toUpperCase() === name.toUpperCase()) {
+                        currentPriceElem.innerHTML = c.price;
+                        break;
+                    }
+                }
+            }
+        }
+
+        function doCORSRequest(elem, name, options, setCurrentPrice) {
+            var x = new XMLHttpRequest();
+            x.open(options.method, options.url);
+            x.onload = x.onerror = function () {
+                if (x.response === "") {
+                    doCORSRequest(elem, name, setCurrentPrice);
+                } else {
+                    setCurrentPrice(elem, name, x.response);
+                }
+            };
+            if (/^POST/i.test(options.method)) {
+                x.setRequestHeader(
+                    "Content-Type",
+                    "application/x-www-form-urlencoded"
+                );
+            }
+            x.send(options.data);
+            x.onerror = function () {
+                setCurrentPrice(elem, name, undefined);
+            };
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .titleDate {
+            font-size: 5vw;
+            color: #ffffff;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 25%;
+            height: 180px;
+            padding: 10px;
+            background-color: #ffffff;
+            border-color: #000000;
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        .column {
+            color: white;
+            background-color: transparent;
+        }
+            /* green column */
+            .column.green {
+                background-color: #05ac4d;
+            }
+
+            /* red column */
+            .column.red {
+                background-color: #ef3623;
+            }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .row.hidden {
+            visibility: hidden;
+        }
+
+        .dateRow {
+            display: table;
+            width: 100%; /*Optional*/
+            table-layout: fixed; /*Optional*/
+            border-spacing: 10px; /*Optional*/
+        }
+
+        .preDate, .nowDate, .nextDate {
+            display: table-cell;
+        }
+
+        div.companyName, div.companyCode {
+            float: left;
+            width: 100%;
+            font-size: larger;
+        }
+
+        div.companyClose, div.companyChange {
+            float: left;
+            width: 50%;
+            font-size: large;
+        }
+
+        div.companyVol,
+        div.companyCurrent {
+            float: left;
+            width: 50%;
+        }
+
+        div.companyCurrent {
+            text-align: center;
+            background-color: black;
+        }
+
+        div.conditionTitle {
+            color: white;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body style="background-color: #555352" onload="dateGenerate()">
+    <div class="dateRow">
+        <div class="titleDate preDate"><a href="1/1/2021">1/1/2021</a></div>
+        <div class="titleDate nowDate">31-03-2021</div>
+        <div class="titleDate nextDate"><a href="1/1/2021">1/1/2021</a></div>
+    </div>
+    <div class="contentRow">
+        <div class="row">
+        </div>
+    <div class="conditionTitle">Bull</div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">AMPROP ( 1007 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.43</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">62400</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">ASIAPAC ( 4057 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.18</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">47015000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">IOIPG ( 5249 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.43</div><div class="companyChange">0.04</div></div><div style="margin-top: 115px;"><div class="companyVol">3646800</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">MCT ( 5182 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.295</div><div class="companyChange">0.03</div></div><div style="margin-top: 115px;"><div class="companyVol">190190700</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">MTDACPI ( 5924 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.28</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">200600</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">PCCS ( 6068 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.55</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">6944700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">RALCO ( 7498 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.22</div><div class="companyChange">0.05</div></div><div style="margin-top: 115px;"><div class="companyVol">165100</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">SCOMI ( 7158 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.065</div><div class="companyChange">0.015</div></div><div style="margin-top: 115px;"><div class="companyVol">236481000</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">WMG ( 6378 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.145</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">7996900</div><div class="companyCurrent"></div></div></div></div><br><br><div class="conditionTitle">ShortMCros</div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">ABLEGRP ( 7086 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.155</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">4568000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">BKAWAN ( 1899 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">17.8</div><div class="companyChange">0.1</div></div><div style="margin-top: 115px;"><div class="companyVol">5000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">DFCITY ( 5165 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.53</div><div class="companyChange">0.08</div></div><div style="margin-top: 115px;"><div class="companyVol">9500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">PASDEC ( 6912 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.32</div><div class="companyChange">-0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">8081700</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">PGLOBE ( 3611 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.19</div><div class="companyChange">0.09</div></div><div style="margin-top: 115px;"><div class="companyVol">813600</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">SEEHUP ( 7053 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.5</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">52000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">TASCO ( 5140 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.05</div><div class="companyChange">0.04</div></div><div style="margin-top: 115px;"><div class="companyVol">6718200</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">TECGUAN ( 7439 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.3</div><div class="companyChange">0.08</div></div><div style="margin-top: 115px;"><div class="companyVol">24900</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">VS ( 6963 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.85</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">8480900</div><div class="companyCurrent"></div></div></div></div><br><br><div class="conditionTitle">wash</div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">AEON ( 6599 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.29</div><div class="companyChange">-0.03</div></div><div style="margin-top: 115px;"><div class="companyVol">537400</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">ALAQAR ( 5116 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.31</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">13100</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">ATTA ( 7099 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.56</div><div class="companyChange">0.025</div></div><div style="margin-top: 115px;"><div class="companyVol">11500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">AVI ( 8885 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.105</div><div class="companyChange">-0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">2979300</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">AWC ( 7579 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.66</div><div class="companyChange">-0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">1733000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">BOILERM ( 0168 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.39</div><div class="companyChange">-0.06</div></div><div style="margin-top: 115px;"><div class="companyVol">693400</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">CCB ( 2925 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.41</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">177500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">CCK ( 7035 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.68</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">316700</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">CGB ( 8052 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.56</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">2652700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">COMCORP ( 7195 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.165</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">200</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">CWG ( 9423 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.39</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">4000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">DLADY ( 3026 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">35.7</div><div class="companyChange">0.1</div></div><div style="margin-top: 115px;"><div class="companyVol">1700</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">ECOHLDS ( 0059 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.22</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">401100</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">EDEN ( 7471 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.175</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">2209300</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">EDGENTA ( 1368 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.77</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">251900</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">ENCORP ( 6076 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.3</div><div class="companyChange">-0.025</div></div><div style="margin-top: 115px;"><div class="companyVol">826300</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">GMUTUAL ( 9962 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.305</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">82900</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">GRANFLO ( 0056 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.6</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">15284200</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">HEIM ( 3255 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">25.8</div><div class="companyChange">0.06</div></div><div style="margin-top: 115px;"><div class="companyVol">101500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">HIGHTEC ( 7033 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.03</div><div class="companyChange">-0.07</div></div><div style="margin-top: 115px;"><div class="companyVol">85800</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">HLIND ( 3301 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">9.39</div><div class="companyChange">0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">19600</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">HOOVER ( 7010 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.25</div><div class="companyChange">0.04</div></div><div style="margin-top: 115px;"><div class="companyVol">307300</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">HPMT ( 5291 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.635</div><div class="companyChange">-0.015</div></div><div style="margin-top: 115px;"><div class="companyVol">5568700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">HSSEB ( 0185 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.575</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">357800</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">KEINHIN ( 7199 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.73</div><div class="companyChange">-0.03</div></div><div style="margin-top: 115px;"><div class="companyVol">65100</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">KIMHIN ( 5371 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.84</div><div class="companyChange">-0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">10000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">KOBAY ( 6971 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">4.7</div><div class="companyChange">-0.1</div></div><div style="margin-top: 115px;"><div class="companyVol">14500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">LANDMRK ( 1643 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.5</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">947800</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">MATRIX ( 5236 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.93</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">139500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">MEDIAC ( 5090 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.2</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">2372800</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">METROD ( 6149 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.45</div><div class="companyChange">-0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">14000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">MJPERAK ( 8141 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.415</div><div class="companyChange">0.015</div></div><div style="margin-top: 115px;"><div class="companyVol">1037000</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">MKH ( 6114 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.44</div><div class="companyChange">-0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">101500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">MPHBCAP ( 5237 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.35</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">274000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">MULPHA ( 3905 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.54</div><div class="companyChange">-0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">98000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">NAIM ( 5073 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.83</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">778300</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">NHFATT ( 7060 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.19</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">100</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">NPC ( 5047 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.9</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">OCR ( 7071 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.25</div><div class="companyChange">-0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">5595800</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">OFI ( 7107 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.83</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">10000</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">PANTECH ( 5125 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.485</div><div class="companyChange">-0.015</div></div><div style="margin-top: 115px;"><div class="companyVol">1764200</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">PARAGON ( 9407 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.95</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">48000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">PERMAJU ( 7080 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.19</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">33934700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">PLENITU ( 5075 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.1</div><div class="companyChange">0.05</div></div><div style="margin-top: 115px;"><div class="companyVol">5000</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">PPG ( 7190 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.36</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">78200</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">PRKCORP ( 8346 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.345</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">10000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">PWORTH ( 7123 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.025</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">2979200</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">RHONEMA ( 5278 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.73</div><div class="companyChange">0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">94700</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">SEALINK ( 5145 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.285</div><div class="companyChange">-0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">12713600</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">SENDAI ( 5205 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.27</div><div class="companyChange">-0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">847100</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">SERNKOU ( 7180 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.32</div><div class="companyChange">0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">62100</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">SNTORIA ( 5213 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.14</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">15500</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">SSTEEL ( 5665 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.8</div><div class="companyChange">-0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">9500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">SUCCESS ( 7207 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.83</div><div class="companyChange">-0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">663400</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">SUNSURIA ( 3743 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.495</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">74500</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">SWKPLNT ( 5135 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">2.3</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">27100</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">SYF ( 7082 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.41</div><div class="companyChange">0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">4040400</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">TAS ( 5149 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.255</div><div class="companyChange">0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">208100</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column green"><div style="margin-top: 20px;"><div class="companyName">TNLOGIS ( 8397 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.85</div><div class="companyChange">0.02</div></div><div style="margin-top: 115px;"><div class="companyVol">1108600</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">UNIMECH ( 7091 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.55</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">2300</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">UOAREIT ( 5110 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.11</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">50700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">WIDETEC ( 7692 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.21</div><div class="companyChange">-0.09</div></div><div style="margin-top: 115px;"><div class="companyVol">16000</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">WOODLAN ( 7025 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.715</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">5000</div><div class="companyCurrent"></div></div></div></div><br><br><div class="conditionTitle">wash2</div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">CVIEW ( 5049 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.24</div><div class="companyChange">-0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">6800</div><div class="companyCurrent"></div></div></div></div><br><br><div class="conditionTitle">wash2X</div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column "><div style="margin-top: 20px;"><div class="companyName">CGB ( 8052 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.56</div><div class="companyChange">0</div></div><div style="margin-top: 115px;"><div class="companyVol">2652700</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">ENCORP ( 6076 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.3</div><div class="companyChange">-0.025</div></div><div style="margin-top: 115px;"><div class="companyVol">826300</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">KERJAYA ( 7161 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">1.32</div><div class="companyChange">-0.03</div></div><div style="margin-top: 115px;"><div class="companyVol">3748600</div><div class="companyCurrent"></div></div></div><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">WCEHB ( 3565 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.47</div><div class="companyChange">-0.01</div></div><div style="margin-top: 115px;"><div class="companyVol">7258300</div><div class="companyCurrent"></div></div></div></div><div class="row"><div onload="loadPrice(this)" onclick="openChart(this)" class="column red"><div style="margin-top: 20px;"><div class="companyName">WILLOW ( 0008 ) </div></div><div style="margin-top: 75px;"><div class="companyClose">0.54</div><div class="companyChange">-0.005</div></div><div style="margin-top: 115px;"><div class="companyVol">8349000</div><div class="companyCurrent"></div></div></div></div><br><br></div>
+</body>
+</html>
