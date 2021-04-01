@@ -2198,5 +2198,103 @@
       "companyName": "INIX",
       "companyCode": "0094"
     }
+  ],
+  "1/4/2021": [
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "JKGLAND",
+      "companyCode": "6769"
+    },
+    {
+      "companyName": "YONGTAI",
+      "companyCode": "7066"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "MCT",
+      "companyCode": "5182"
+    },
+    {
+      "companyName": "ASIAPAC",
+      "companyCode": "4057"
+    },
+    {
+      "companyName": "BJLAND",
+      "companyCode": "4219"
+    },
+    {
+      "companyName": "MKLAND",
+      "companyCode": "8893"
+    },
+    {
+      "companyName": "ZELAN",
+      "companyCode": "2283"
+    },
+    {
+      "companyName": "L&G",
+      "companyCode": "3174"
+    },
+    {
+      "companyName": "HBGLOB",
+      "companyCode": "5187"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "WIDAD",
+      "companyCode": "0162"
+    },
+    {
+      "companyName": "KANGER",
+      "companyCode": "0170"
+    },
+    {
+      "companyName": "LUSTER",
+      "companyCode": "5068"
+    },
+    {
+      "companyName": "TANCO",
+      "companyCode": "2429"
+    },
+    {
+      "companyName": "UCREST",
+      "companyCode": "0005"
+    },
+    {
+      "companyName": "PERMAJU",
+      "companyCode": "7080"
+    },
+    {
+      "companyName": "AIRASIA",
+      "companyCode": "5099"
+    },
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "TAWIN",
+      "companyCode": "7097"
+    },
+    {
+      "companyName": "AGES",
+      "companyCode": "7145"
+    },
+    {
+      "companyName": "SMI",
+      "companyCode": "4375"
+    },
+    {
+      "companyName": "TALAMT",
+      "companyCode": "2259"
+    }
   ]
 }
