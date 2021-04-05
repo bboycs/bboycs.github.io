@@ -2296,5 +2296,95 @@
       "companyName": "TALAMT",
       "companyCode": "2259"
     }
+  ],
+  "5/4/2021": [
+    {
+      "companyName": "PARKSON",
+      "companyCode": "5657"
+    },
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "MATANG",
+      "companyCode": "0189"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "MINDA",
+      "companyCode": "5166"
+    },
+    {
+      "companyName": "KGROUP",
+      "companyCode": "0036"
+    },
+    {
+      "companyName": "BJLAND",
+      "companyCode": "4219"
+    },
+    {
+      "companyName": "BARAKAH",
+      "companyCode": "7251"
+    },
+    {
+      "companyName": "LUSTER",
+      "companyCode": "5068"
+    },
+    {
+      "companyName": "DSONIC",
+      "companyCode": "5216"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "SMTRACK",
+      "companyCode": "0169"
+    },
+    {
+      "companyName": "MCT",
+      "companyCode": "5182"
+    },
+    {
+      "companyName": "PERMAJU",
+      "companyCode": "7080"
+    },
+    {
+      "companyName": "AIMFLEX",
+      "companyCode": "0209"
+    },
+    {
+      "companyName": "NEXGRAM",
+      "companyCode": "0096"
+    },
+    {
+      "companyName": "BORNOIL",
+      "companyCode": "7036"
+    },
+    {
+      "companyName": "FOCUS",
+      "companyCode": "0116"
+    },
+    {
+      "companyName": "ITRONIC",
+      "companyCode": "9393"
+    },
+    {
+      "companyName": "MPAY",
+      "companyCode": "0156"
+    },
+    {
+      "companyName": "TECHNAX",
+      "companyCode": "2739"
+    }
   ]
 }
