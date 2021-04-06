@@ -2386,5 +2386,99 @@
       "companyName": "TECHNAX",
       "companyCode": "2739"
     }
+  ],
+  "6/4/2021": [
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "TAWIN",
+      "companyCode": "7097"
+    },
+    {
+      "companyName": "VOLCANO",
+      "companyCode": "0232"
+    },
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "FOCUS",
+      "companyCode": "0116"
+    },
+    {
+      "companyName": "AT",
+      "companyCode": "0072"
+    },
+    {
+      "companyName": "YONGTAI",
+      "companyCode": "7066"
+    },
+    {
+      "companyName": "JKGLAND",
+      "companyCode": "6769"
+    },
+    {
+      "companyName": "MERIDIAN",
+      "companyCode": "5040"
+    },
+    {
+      "companyName": "DOLPHIN",
+      "companyCode": "5265"
+    },
+    {
+      "companyName": "SEALINK",
+      "companyCode": "5145"
+    },
+    {
+      "companyName": "MATANG",
+      "companyCode": "0189"
+    },
+    {
+      "companyName": "CONNECT",
+      "companyCode": "0102"
+    },
+    {
+      "companyName": "SAPNRG",
+      "companyCode": "5218"
+    },
+    {
+      "companyName": "MCT",
+      "companyCode": "5182"
+    },
+    {
+      "companyName": "YTL",
+      "companyCode": "4677"
+    },
+    {
+      "companyName": "PARKSON",
+      "companyCode": "5657"
+    },
+    {
+      "companyName": "AAX",
+      "companyCode": "5238"
+    },
+    {
+      "companyName": "BJLAND",
+      "companyCode": "4219"
+    },
+    {
+      "companyName": "DSONIC",
+      "companyCode": "5216"
+    },
+    {
+      "companyName": "KOMARK",
+      "companyCode": "7017"
+    },
+    {
+      "companyName": "LUSTER",
+      "companyCode": "5068"
+    }
   ]
 }
