@@ -3100,5 +3100,233 @@
       "companyName": "SAPNRG",
       "companyCode": "5218"
     }
+  ],
+  "19/4/2021": [
+    {
+      "companyName": "MINDA",
+      "companyCode": "5166"
+    },
+    {
+      "companyName": "FOCUS",
+      "companyCode": "0116"
+    },
+    {
+      "companyName": "UCREST",
+      "companyCode": "0005"
+    },
+    {
+      "companyName": "SEDANIA",
+      "companyCode": "0178"
+    },
+    {
+      "companyName": "KEYASIC",
+      "companyCode": "0143"
+    },
+    {
+      "companyName": "SASBADI",
+      "companyCode": "5252"
+    },
+    {
+      "companyName": "DATAPRP",
+      "companyCode": "8338"
+    },
+    {
+      "companyName": "BPURI",
+      "companyCode": "5932"
+    },
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "MESTRON",
+      "companyCode": "0207"
+    },
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "PUC",
+      "companyCode": "0007"
+    },
+    {
+      "companyName": "FINTEC",
+      "companyCode": "0150"
+    },
+    {
+      "companyName": "SERSOL",
+      "companyCode": "0055"
+    },
+    {
+      "companyName": "QES",
+      "companyCode": "0196"
+    },
+    {
+      "companyName": "RUBEREX",
+      "companyCode": "7803"
+    },
+    {
+      "companyName": "HBGLOB",
+      "companyCode": "5187"
+    },
+    {
+      "companyName": "TRIVE",
+      "companyCode": "0118"
+    },
+    {
+      "companyName": "JAG",
+      "companyCode": "0024"
+    },
+    {
+      "companyName": "CAREPLS",
+      "companyCode": "0163"
+    },
+    {
+      "companyName": "LKL",
+      "companyCode": "0182"
+    },
+    {
+      "companyName": "XOX",
+      "companyCode": "0165"
+    },
+    {
+      "companyName": "DYNACIA",
+      "companyCode": "5178"
+    },
+    {
+      "companyName": "CUSCAPI",
+      "companyCode": "0051"
+    },
+    {
+      "companyName": "CNI",
+      "companyCode": "5104"
+    },
+    {
+      "companyName": "SEALINK",
+      "companyCode": "5145"
+    },
+    {
+      "companyName": "MINETEC",
+      "companyCode": "7219"
+    }
+  ],
+  "20/4/2021": [
+    {
+      "companyName": "UCREST",
+      "companyCode": "0005"
+    },
+    {
+      "companyName": "KEYASIC",
+      "companyCode": "0143"
+    },
+    {
+      "companyName": "FOCUS",
+      "companyCode": "0116"
+    },
+    {
+      "companyName": "CENSOF",
+      "companyCode": "5195"
+    },
+    {
+      "companyName": "SEDANIA",
+      "companyCode": "0178"
+    },
+    {
+      "companyName": "MNC",
+      "companyCode": "0103"
+    },
+    {
+      "companyName": "MACPIE",
+      "companyCode": "0140"
+    },
+    {
+      "companyName": "ARBB",
+      "companyCode": "7181"
+    },
+    {
+      "companyName": "MINDA",
+      "companyCode": "5166"
+    },
+    {
+      "companyName": "BPURI",
+      "companyCode": "5932"
+    },
+    {
+      "companyName": "GDEX",
+      "companyCode": "0078"
+    },
+    {
+      "companyName": "PUC",
+      "companyCode": "0007"
+    },
+    {
+      "companyName": "SCBUILD",
+      "companyCode": "0109"
+    },
+    {
+      "companyName": "SCOMI",
+      "companyCode": "7158"
+    },
+    {
+      "companyName": "LKL",
+      "companyCode": "0182"
+    },
+    {
+      "companyName": "SOLID",
+      "companyCode": "5242"
+    },
+    {
+      "companyName": "RUBEREX",
+      "companyCode": "7803"
+    },
+    {
+      "companyName": "HBGLOB",
+      "companyCode": "5187"
+    },
+    {
+      "companyName": "BJCORP",
+      "companyCode": "3395"
+    },
+    {
+      "companyName": "VELESTO",
+      "companyCode": "5243"
+    },
+    {
+      "companyName": "LAMBO",
+      "companyCode": "0018"
+    },
+    {
+      "companyName": "KTG",
+      "companyCode": "7165"
+    },
+    {
+      "companyName": "SUNZEN",
+      "companyCode": "0148"
+    },
+    {
+      "companyName": "VIVOCOM",
+      "companyCode": "0069"
+    },
+    {
+      "companyName": "DNEX",
+      "companyCode": "4456"
+    },
+    {
+      "companyName": "DYNACIA",
+      "companyCode": "5178"
+    },
+    {
+      "companyName": "ASB",
+      "companyCode": "1481"
+    },
+    {
+      "companyName": "SASBADI",
+      "companyCode": "5252"
+    }
   ]
 }
